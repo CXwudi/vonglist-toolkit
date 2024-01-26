@@ -32,7 +32,7 @@ class MainExporter(
 
   private fun mapNicoListToVocaDbList(songsItr: Iterator<NicoListItem>): List<MappedResult> = runBlocking(Dispatchers.Default) {
     songsItr.asSequence()
-      .map { song -> song to async { pvMapper.tryFindRecord(PV(song.id, PvService.NicoNicoDouga)) } }
+      .map { song -> song to async { pvMapper.tryFindRecord(PV(song.id, PvService.NicoNicoDouga, song.title)) } }
       .toList()
       .map { (song, deferred) ->
         val vocadbId = deferred.await()
@@ -46,4 +46,5 @@ private data class MappedResult(
   val nicoItem: NicoListItem,
   val vocaDbId: Long?,
 )
+
 private val log = KInlineLogging.logger()
