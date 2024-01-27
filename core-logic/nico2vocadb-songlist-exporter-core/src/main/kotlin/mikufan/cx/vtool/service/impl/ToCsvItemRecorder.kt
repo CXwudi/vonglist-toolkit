@@ -3,32 +3,40 @@ package mikufan.cx.vtool.service.impl
 import com.fasterxml.jackson.databind.SequenceWriter
 import com.fasterxml.jackson.dataformat.csv.CsvMapper
 import com.fasterxml.jackson.dataformat.csv.CsvSchema
-import mikufan.cx.vtool.module.model.niconico.NicoListItem
-import mikufan.cx.vtool.service.api.SongNotFoundNicoPvRecorder
+import mikufan.cx.vtool.service.api.shared.ItemRecorder
 import java.nio.file.Path
 
-class ToCsvSongNotFoundPvRecorder(
+class ToCsvItemRecorder<T>(
   csvFile: Path,
-) : SongNotFoundNicoPvRecorder {
+  clazz: Class<T>
+) : ItemRecorder<T> {
 
   private val writer: SequenceWriter
 
   init {
     val csvMapper = CsvMapper()
     val schema: CsvSchema = csvMapper
-      .schemaFor(NicoListItem::class.java)
+      .schemaFor(clazz)
       .withHeader()
       .withColumnSeparator(',')
     writer = csvMapper.writer(schema).writeValues(csvFile.toFile())
   }
 
-  override fun recordAll(items: Iterable<NicoListItem>) {
+  override fun recordAll(items: Iterable<T>) {
     writer.use {
       it.writeAll(items)
     }
   }
 
-  override fun record(item: NicoListItem) {
-    throw UnsupportedOperationException("not implemented")
+  override fun record(item: T) {
+    writer.write(item)
+  }
+
+  fun close() {
+    writer.close()
   }
 }
+
+inline fun <reified T> ToCsvItemRecorder(
+  csvFile: Path
+) = ToCsvItemRecorder(csvFile, T::class.java)
