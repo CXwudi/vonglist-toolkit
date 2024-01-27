@@ -11,10 +11,8 @@ data class PV(
    */
   val pvTitle: String = "",
 ) {
-  override fun hashCode(): Int {
-    return Objects.hash(pvId, pvService)
-  }
 
+  override fun hashCode(): Int = Objects.hash(pvId, pvService)
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
     if (other !is PV) return false
