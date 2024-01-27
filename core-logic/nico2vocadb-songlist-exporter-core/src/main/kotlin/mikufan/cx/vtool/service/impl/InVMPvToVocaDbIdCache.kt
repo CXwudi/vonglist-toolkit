@@ -1,11 +1,11 @@
 package mikufan.cx.vtool.service.impl
 
 import mikufan.cx.vtool.module.model.vocadb.PV
-import mikufan.cx.vtool.service.api.cache.PvToVocaDbIdCache
+import mikufan.cx.vtool.service.api.cache.KVCache
 import java.util.*
 import java.util.concurrent.locks.ReentrantReadWriteLock
 
-class InVMPvToVocaDbIdCache : PvToVocaDbIdCache {
+class InVMPvToVocaDbIdCache : KVCache<PV, Long> {
 
   private val cache = mutableMapOf<PV, Optional<Long?>>()
 

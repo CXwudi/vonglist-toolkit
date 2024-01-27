@@ -2,13 +2,13 @@ package mikufan.cx.vtool.service.impl
 
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vtool.module.model.vocadb.PV
-import mikufan.cx.vtool.service.api.cache.PvToVocaDbIdCache
 import mikufan.cx.vtool.service.api.VocaDbPvMapper
 import mikufan.cx.vtool.service.api.api.VocaDbSongByPvApi
+import mikufan.cx.vtool.service.api.cache.KVCache
 
 class ApiBasedVocaDbPvMapper(
   private val songByPvApi: VocaDbSongByPvApi,
-  private val cache: PvToVocaDbIdCache,
+  private val cache: KVCache<PV, Long>
 ) : VocaDbPvMapper {
 
   override fun tryFindRecord(pv: PV): Long? {
