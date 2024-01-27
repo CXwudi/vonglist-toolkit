@@ -12,12 +12,15 @@ import mikufan.cx.vtool.module.model.vocadb.PvService
 import mikufan.cx.vtool.module.model.vocadb.VocaDBSongListItem
 import mikufan.cx.vtool.service.api.NicoListFetcher
 import mikufan.cx.vtool.service.api.VocaDbPvMapper
+import mikufan.cx.vtool.service.api.shared.ItemRecorder
 
 class MainExporter(
   private val ioConfig: IOConfig,
   preference: Preference,
   private val listFetcher: NicoListFetcher,
   private val pvMapper: VocaDbPvMapper,
+  private val notFoundListItemWriter: ItemRecorder<NicoListItem>,
+  private val foundListItemWriter: ItemRecorder<VocaDBSongListItem>,
 ) : Runnable {
 
   private val sortPreference = NicoListSortPreference(preference.sortKey, preference.sortOrder)
@@ -27,7 +30,10 @@ class MainExporter(
     val resultList = mapNicoListToVocaDbList(songsItr)
     val notFoundList = resultList.filter { it.vocaDbId == null }.map { it.nicoItem }
     val foundList = resultList.filter { it.vocaDbId != null }.map { VocaDBSongListItem(it.vocaDbId!!, it.nicoItem.note) }
-    log.info { "Found ${foundList.size} songs, not found ${notFoundList.size} songs" }
+    log.info { "Found ${foundList.size} songs, not found ${notFoundList.size} songs. Now recording all results" }
+    notFoundListItemWriter.recordAll(notFoundList)
+    foundListItemWriter.recordAll(foundList)
+    log.info { "Done" }
   }
 
   private fun mapNicoListToVocaDbList(songsItr: Iterator<NicoListItem>): List<MappedResult> = runBlocking(Dispatchers.Default) {
