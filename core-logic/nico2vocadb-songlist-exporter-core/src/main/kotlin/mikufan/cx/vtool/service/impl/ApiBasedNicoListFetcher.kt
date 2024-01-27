@@ -1,5 +1,6 @@
 package mikufan.cx.vtool.service.impl
 
+import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vtool.service.api.api.NicoListApi
 import mikufan.cx.vtool.module.model.niconico.NicoListItem
 import mikufan.cx.vtool.module.model.niconico.NicoListSortPreference
@@ -15,7 +16,10 @@ class ApiBasedNicoListFetcher(
   override fun readAllSongsFromList(
     id: Long,
     sortPreference: NicoListSortPreference,
-  ): NicoListItemIterator = LazyApiCallListItemIterator(nicoListApi, id, sortPreference, usePrivateApi)
+  ): NicoListItemIterator {
+    log.info { "Lazily reading all songs from list $id with sort preference $sortPreference" }
+    return LazyApiCallListItemIterator(nicoListApi, id, sortPreference, usePrivateApi)
+  }
 }
 
 class LazyApiCallListItemIterator(
@@ -69,3 +73,5 @@ class LazyApiCallListItemIterator(
     }
   }
 }
+
+private val log = KInlineLogging.logger()
