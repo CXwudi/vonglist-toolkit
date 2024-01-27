@@ -13,7 +13,7 @@ interface KVCache<K, V> {
 
   /**
    * try to find mapping V from K
-   * @param pv PV
+   * @param k K
    * @return Optional of V, null means not found,
    * Optional.of(null) means found but no mapping,
    * Optional.of(V) means found and has mapping
