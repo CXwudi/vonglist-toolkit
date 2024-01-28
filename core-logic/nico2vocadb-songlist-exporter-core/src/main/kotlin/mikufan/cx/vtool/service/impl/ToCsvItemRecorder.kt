@@ -4,12 +4,13 @@ import com.fasterxml.jackson.databind.SequenceWriter
 import com.fasterxml.jackson.dataformat.csv.CsvMapper
 import com.fasterxml.jackson.dataformat.csv.CsvSchema
 import mikufan.cx.vtool.service.api.shared.ItemRecorder
+import java.io.Closeable
 import java.nio.file.Path
 
 class ToCsvItemRecorder<T>(
   csvFile: Path,
   clazz: Class<T>
-) : ItemRecorder<T> {
+) : ItemRecorder<T>, Closeable {
 
   private val writer: SequenceWriter
 
@@ -32,7 +33,7 @@ class ToCsvItemRecorder<T>(
     writer.write(item)
   }
 
-  fun close() {
+  override fun close() {
     writer.close()
   }
 }
