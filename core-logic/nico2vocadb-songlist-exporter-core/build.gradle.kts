@@ -5,8 +5,10 @@ plugins {
 dependencies {
   implementation(project(":shared-module:all-model"))
   api(platform("org.springframework.boot:spring-boot-dependencies"))
+  api("org.springframework.boot:spring-boot")
   api("com.github.CXwudi:kotlin-jvm-inline-logging")
   api("org.springframework:spring-web")
+  api("org.apache.httpcomponents.client5:httpclient5")
   api("jakarta.validation:jakarta.validation-api")
   api("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
 }
