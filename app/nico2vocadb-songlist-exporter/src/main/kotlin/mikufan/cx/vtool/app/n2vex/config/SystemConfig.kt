@@ -30,6 +30,7 @@ data class SystemConfig(
   @PostConstruct
   fun createFiles() {
     if (pvToVocadbSongMappingCsv.notExists()) {
+      pvToVocadbSongMappingCsv.parent.createDirectories()
       pvToVocadbSongMappingCsv.createFile()
     }
   }
