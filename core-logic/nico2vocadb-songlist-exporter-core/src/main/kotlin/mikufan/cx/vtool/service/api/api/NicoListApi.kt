@@ -2,8 +2,6 @@ package mikufan.cx.vtool.service.api.api
 
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min
-import mikufan.cx.vtool.module.model.niconico.NicoListSortKey
-import mikufan.cx.vtool.module.model.niconico.NicoListSortOrder
 import mikufan.cx.vtool.module.model.niconico.NvApiResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated

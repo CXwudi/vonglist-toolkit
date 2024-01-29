@@ -12,7 +12,7 @@ import mikufan.cx.vtool.module.model.vocadb.PvService
 import mikufan.cx.vtool.module.model.vocadb.VocaDBSongListItem
 import mikufan.cx.vtool.service.api.NicoListFetcher
 import mikufan.cx.vtool.service.api.VocaDbPvMapper
-import mikufan.cx.vtool.service.api.shared.ItemRecorder
+import mikufan.cx.vtool.service.api.io.ItemRecorder
 
 class MainExporter(
   private val ioConfig: IOConfig,
