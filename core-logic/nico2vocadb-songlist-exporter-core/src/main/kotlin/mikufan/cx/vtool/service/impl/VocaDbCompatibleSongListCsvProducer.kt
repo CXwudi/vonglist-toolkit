@@ -1,7 +1,7 @@
 package mikufan.cx.vtool.service.impl
 
 import mikufan.cx.vtool.module.model.vocadb.VocaDBSongListItem
-import mikufan.cx.vtool.service.api.shared.ItemRecorder
+import mikufan.cx.vtool.service.api.io.ItemRecorder
 import java.io.Closeable
 import java.nio.file.Path
 import kotlin.io.path.bufferedWriter
