@@ -1,4 +1,4 @@
-package mikufan.cx.vtool.service.api.shared
+package mikufan.cx.vtool.service.api.io
 
 /**
  * Read a list of item from somewhere
