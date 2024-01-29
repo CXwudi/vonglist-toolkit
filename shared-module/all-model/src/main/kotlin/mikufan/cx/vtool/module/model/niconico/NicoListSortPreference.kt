@@ -6,8 +6,8 @@ data class NicoListSortPreference(
 )
 
 enum class NicoListSortOrder(val value: String) {
-  Ascending("asc"),
-  Descending("desc");
+  Asc("asc"),
+  Desc("desc");
 
   override fun toString(): String {
     return value
