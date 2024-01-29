@@ -6,7 +6,6 @@ import mikufan.cx.vtool.module.model.niconico.NicoListItem
 import mikufan.cx.vtool.module.model.niconico.NicoListSortPreference
 import mikufan.cx.vtool.service.api.NicoListFetcher
 import mikufan.cx.vtool.service.api.NicoListItemIterator
-import java.util.*
 import kotlin.collections.ArrayDeque
 
 class ApiBasedNicoListFetcher(
