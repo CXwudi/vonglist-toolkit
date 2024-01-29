@@ -4,20 +4,19 @@ import jakarta.validation.constraints.Positive
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 import kotlin.io.path.notExists
-import kotlin.properties.Delegates
 
-class IOConfig {
+interface IOConfig {
   @get:Positive
-  var nicoListId: Long = -1
-  lateinit var outputFile: Path
-  lateinit var errorCsv: Path
+  val nicoListId: Long
+  val outputCsv: Path
+  val notFoundCsv: Path
 
-  fun createFolders(): Unit {
-    if (outputFile.parent.notExists()) {
-      outputFile.parent.createDirectories()
+  fun createFolders() {
+    if (outputCsv.parent.notExists()) {
+      outputCsv.parent.createDirectories()
     }
-    if (errorCsv.parent.notExists()) {
-      errorCsv.parent.createDirectories()
+    if (notFoundCsv.parent.notExists()) {
+      notFoundCsv.parent.createDirectories()
     }
   }
 
