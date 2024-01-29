@@ -12,11 +12,11 @@ interface IOConfig {
   val notFoundCsv: Path
 
   fun createFolders() {
-    if (outputCsv.parent.notExists()) {
-      outputCsv.parent.createDirectories()
+    if (outputCsv.parent?.notExists() == true) {
+      outputCsv.parent?.createDirectories()
     }
-    if (notFoundCsv.parent.notExists()) {
-      notFoundCsv.parent.createDirectories()
+    if (notFoundCsv.parent?.notExists() == true) {
+      notFoundCsv.parent?.createDirectories()
     }
   }
 

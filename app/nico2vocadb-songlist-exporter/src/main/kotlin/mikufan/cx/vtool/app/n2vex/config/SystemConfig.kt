@@ -28,8 +28,8 @@ data class SystemConfig(
 
   @PostConstruct
   fun createFiles() {
-    if (pvToVocadbSongMappingCsv.parent.notExists()) {
-      pvToVocadbSongMappingCsv.parent.createDirectories()
+    if (pvToVocadbSongMappingCsv.parent?.notExists() == true) {
+      pvToVocadbSongMappingCsv.parent?.createDirectories()
     }
   }
 }
