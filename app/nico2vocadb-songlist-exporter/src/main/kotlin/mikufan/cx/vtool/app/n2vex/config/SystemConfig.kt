@@ -1,5 +1,6 @@
 package mikufan.cx.vtool.app.n2vex.config
 
+import jakarta.annotation.PostConstruct
 import jakarta.validation.Constraint
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
@@ -25,9 +26,11 @@ data class SystemConfig(
   @get:NotBlank
   val userAgent: String,
 ) {
-  init {
-    if (pvToVocadbSongMappingCsv.parent.notExists()) {
-      pvToVocadbSongMappingCsv.parent.createDirectories()
+
+  @PostConstruct
+  fun createFiles() {
+    if (pvToVocadbSongMappingCsv.notExists()) {
+      pvToVocadbSongMappingCsv.createFile()
     }
   }
 }
