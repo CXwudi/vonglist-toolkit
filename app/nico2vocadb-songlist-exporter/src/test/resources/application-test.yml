@@ -1,0 +1,41 @@
+io:
+  nico-list-id: 76180920 # 2024V家新曲
+  output-csv: test-output.csv
+  not-found-csv: test-not-found.csv
+
+preference:
+  # when fetching the niconico list, read the list in what order
+  # enum of: addedAt, title, mylistComment, registeredAt, viewCount, lastComment, commentCount, likeCount, mylistCount, duration
+  # can be null which means the default order
+  sort-key: addedAt
+  # the order of the sort-key above
+  # enum of: asc, desc
+  sort-order: asc
+  # if your nico list is private, set this to true
+  # if set to true, make sure to input either your user_session cookie value,
+  # or provide the cookie jar txt file in netscape format.
+  # so that the program can log in as behave of you to read your private list
+  use-private-api: false
+  # set this to true if you want to use vocadb's csv import feature
+  # if set to true, the program output the csv in the format that
+  # the vocadb song list csv import feature can read
+  use-vocadb-csv-format: false
+
+system:
+  # if preference.use-private-api is set to true,
+  # then you must provide either the cookie-jar-txt containing the user_session cookie
+  # or provide such cookie value in the niconico-user-session-cookie-value config
+
+  # the path to the cookie jar txt file in netscape format
+  cookie-jar-txt:
+  # the value of the cookie named "user_session" from niconico
+  # usually the value is like: user_session_xxxxxxxx
+  niconico-user-session-cookie-value:
+  # where to save the cache results of
+  pv-to-vocadb-song-mapping-csv: .cache/pv-to-vocadb-map.csv
+  # user-agent (used in both VocaDB api and NicoNico nvapi)
+  user-agent: ${spring.application.name} @ https://github.com/CXwudi/vsonglist-toolkit
+
+logging:
+  level:
+    org.apache.hc.client5.http.headers: debug

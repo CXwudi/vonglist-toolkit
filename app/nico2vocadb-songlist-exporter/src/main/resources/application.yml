@@ -1,0 +1,51 @@
+io:
+  # the id of the list to be exported
+  nico-list-id:
+  # the path to the output file
+  output-csv:
+  # the path to the csv file that record niconico videos that can not be found in vocadb
+  not-found-csv:
+
+preference:
+  # when fetching the niconico list, read the list in what order
+  # enum of: addedAt, title, mylistComment, registeredAt, viewCount, lastComment, commentCount, likeCount, mylistCount, duration
+  # can be null which means the default order
+  sort-key:
+  # the order of the sort-key above
+  # enum of: asc, desc
+  sort-order:
+  # if your nico list is private, set this to true
+  # if set to true, make sure to input either your user_session cookie value,
+  # or provide the cookie jar txt file in netscape format.
+  # so that the program can log in as behave of you to read your private list
+  use-private-api: false
+  # set this to true if you want to use vocadb's csv import feature
+  # if set to true, the program output the csv in the format that
+  # the vocadb song list csv import feature can read
+  use-vocadb-csv-format: false
+
+system:
+  # if preference.use-private-api is set to true,
+  # then you must provide either the cookie-jar-txt containing the user_session cookie
+  # or provide such cookie value in the niconico-user-session-cookie-value config
+
+  # the path to the cookie jar txt file in netscape format
+  cookie-jar-txt:
+  # the value of the cookie named "user_session" from niconico
+  # usually the value is like: user_session_xxxxxxxx
+  niconico-user-session-cookie-value:
+  # where to save the cache results of
+  pv-to-vocadb-song-mapping-csv: .cache/pv-to-vocadb-map.csv
+  # user-agent (used in both VocaDB api and NicoNico nvapi)
+  user-agent: ${spring.application.name} @ https://github.com/CXwudi/vsonglist-toolkit
+
+
+## Spring Boot configuration ##
+
+spring:
+  application:
+    name: nico2vocadb-songlist-exporter
+  threads:
+    virtual:
+      enabled: true
+
