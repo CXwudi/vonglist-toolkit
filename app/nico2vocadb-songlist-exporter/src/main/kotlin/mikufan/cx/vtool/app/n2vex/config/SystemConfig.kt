@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component
 import org.springframework.validation.annotation.Validated
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
-import kotlin.io.path.createFile
 import kotlin.io.path.notExists
 import kotlin.reflect.KClass
 
@@ -29,9 +28,8 @@ data class SystemConfig(
 
   @PostConstruct
   fun createFiles() {
-    if (pvToVocadbSongMappingCsv.notExists()) {
+    if (pvToVocadbSongMappingCsv.parent.notExists()) {
       pvToVocadbSongMappingCsv.parent.createDirectories()
-      pvToVocadbSongMappingCsv.createFile()
     }
   }
 }
