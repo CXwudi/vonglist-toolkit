@@ -3,7 +3,7 @@ package mikufan.cx.vtool.service.impl
 import com.fasterxml.jackson.databind.SequenceWriter
 import com.fasterxml.jackson.dataformat.csv.CsvMapper
 import com.fasterxml.jackson.dataformat.csv.CsvSchema
-import mikufan.cx.vtool.service.api.shared.ItemRecorder
+import mikufan.cx.vtool.service.api.io.ItemRecorder
 import java.io.Closeable
 import java.nio.file.Path
 
