@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-  implementation(project(":shared-module:all-model"))
+  implementation(project(":shared:all-model"))
   api(platform("org.springframework.boot:spring-boot-dependencies"))
   api("org.springframework.boot:spring-boot")
   api("com.github.CXwudi:kotlin-jvm-inline-logging")

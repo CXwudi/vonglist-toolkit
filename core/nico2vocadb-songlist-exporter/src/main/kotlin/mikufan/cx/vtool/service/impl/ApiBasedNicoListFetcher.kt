@@ -1,12 +1,11 @@
 package mikufan.cx.vtool.service.impl
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vtool.service.api.api.NicoListApi
 import mikufan.cx.vtool.module.model.niconico.NicoListItem
 import mikufan.cx.vtool.module.model.niconico.NicoListSortPreference
 import mikufan.cx.vtool.service.api.NicoListFetcher
 import mikufan.cx.vtool.service.api.NicoListItemIterator
-import kotlin.collections.ArrayDeque
+import mikufan.cx.vtool.service.api.api.NicoListApi
 
 class ApiBasedNicoListFetcher(
   private val nicoListApi: NicoListApi,
