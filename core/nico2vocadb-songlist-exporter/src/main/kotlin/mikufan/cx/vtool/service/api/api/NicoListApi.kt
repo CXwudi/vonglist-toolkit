@@ -2,6 +2,8 @@ package mikufan.cx.vtool.service.api.api
 
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min
+import mikufan.cx.vtool.module.model.niconico.NicoListSortKey
+import mikufan.cx.vtool.module.model.niconico.NicoListSortOrder
 import mikufan.cx.vtool.module.model.niconico.NvApiResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -17,8 +19,8 @@ interface NicoListApi {
   @GetExchange("/v2/mylists/{mylistId}")
   fun getPublicList(
     @PathVariable mylistId: Long,
-    @RequestParam(required = false) sortKey: String?,
-    @RequestParam(required = false) sortOrder: String?,
+    @RequestParam(required = false) sortKey: NicoListSortKey?,
+    @RequestParam(required = false) sortOrder: NicoListSortOrder?,
     @RequestParam(required = false) @Min(1) page: Int?,
     @RequestParam(required = false) @Min(1) @Max(100) pageSize: Int?,
   ): ResponseEntity<NvApiResponse>
@@ -26,8 +28,8 @@ interface NicoListApi {
   @GetExchange("/v1/users/me/mylists/{mylistId}")
   fun getPrivateList(
     @PathVariable mylistId: Long,
-    @RequestParam(required = false) sortKey: String?,
-    @RequestParam(required = false) sortOrder: String?,
+    @RequestParam(required = false) sortKey: NicoListSortKey?,
+    @RequestParam(required = false) sortOrder: NicoListSortOrder?,
     @RequestParam(required = false) @Min(1) page: Int?,
     @RequestParam(required = false) @Min(1) @Max(100) pageSize: Int?,
   ): ResponseEntity<NvApiResponse>

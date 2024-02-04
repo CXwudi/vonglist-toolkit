@@ -1,6 +1,8 @@
 package mikufan.cx.vtool.app.n2vex.config
 
 import jakarta.annotation.PreDestroy
+import mikufan.cx.vtool.module.model.niconico.NicoListSortKey
+import mikufan.cx.vtool.module.model.niconico.NicoListSortOrder
 import mikufan.cx.vtool.service.api.api.NicoListApi
 import mikufan.cx.vtool.service.api.http.CookieStorePersistor
 import mikufan.cx.vtool.service.impl.DefaultHeadersRestClientCustomizer
@@ -14,6 +16,8 @@ import org.apache.hc.core5.http.HttpHeaders
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.convert.converter.Converter
+import org.springframework.format.support.DefaultFormattingConversionService
 import org.springframework.util.MultiValueMapAdapter
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.support.RestClientAdapter
@@ -50,7 +54,13 @@ class NicoNicoHttpConfig(
       )
       DefaultHeadersRestClientCustomizer(MultiValueMapAdapter(headerWithUserSession)).customize(restClientBuilder)
     }
-    return HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClientBuilder.build())).build()
+    val niconicoConversionService = DefaultFormattingConversionService().apply {
+      addConverter(NicoListSortKeyConverter())
+      addConverter(NicoListSortOrderConverter())
+    }
+    return HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClientBuilder.build()))
+      .conversionService(niconicoConversionService)
+      .build()
   }
 
   @Bean
@@ -62,4 +72,12 @@ class NicoNicoHttpConfig(
   fun persist() {
     cookieStorePersistor?.persist(cookieStore!!)
   }
+}
+
+private class NicoListSortKeyConverter : Converter<NicoListSortKey, String> {
+  override fun convert(source: NicoListSortKey): String = source.value
+}
+
+private class NicoListSortOrderConverter : Converter<NicoListSortOrder, String> {
+  override fun convert(source: NicoListSortOrder): String = source.value
 }

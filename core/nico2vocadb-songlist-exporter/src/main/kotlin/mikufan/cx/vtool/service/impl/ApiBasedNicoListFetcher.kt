@@ -47,9 +47,9 @@ class LazyApiCallListItemIterator(
 
   private fun doCallApi() {
     val response = if (usePrivateApi) {
-      nicoListApi.getPrivateList(id, sortPreference.sortKey?.value, sortPreference.sortOrder?.value, page++, DEFAULT_PAGE_SIZE)
+      nicoListApi.getPrivateList(id, sortPreference.sortKey, sortPreference.sortOrder, page++, DEFAULT_PAGE_SIZE)
     } else {
-      nicoListApi.getPublicList(id, sortPreference.sortKey?.value, sortPreference.sortOrder?.value, page++, DEFAULT_PAGE_SIZE)
+      nicoListApi.getPublicList(id, sortPreference.sortKey, sortPreference.sortOrder, page++, DEFAULT_PAGE_SIZE)
     }
 
     val statusCode = response.statusCode
