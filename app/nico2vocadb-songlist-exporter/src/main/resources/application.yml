@@ -34,10 +34,11 @@ system:
   # the value of the cookie named "user_session" from niconico
   # usually the value is like: user_session_xxxxxxxx
   niconico-user-session-cookie-value:
-  # where to save the cache results of
-  pv-to-vocadb-song-mapping-csv: .cache/pv-to-vocadb-map.csv
   # user-agent (used in both VocaDB api and NicoNico nvapi)
   user-agent: ${spring.application.name} @ https://github.com/CXwudi/vsonglist-toolkit
+  cache:
+    dir: .cache
+    ttl: 30d
 
 
 ## Spring Boot configuration ##
@@ -48,4 +49,6 @@ spring:
   threads:
     virtual:
       enabled: true
+  cache:
+    cache-names: "sample-name"
 

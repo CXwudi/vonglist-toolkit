@@ -26,13 +26,13 @@ import org.springframework.web.service.invoker.createClient
 
 @Configuration(proxyBeanMethods = false)
 class NicoNicoHttpConfig(
-  systemConfig: SystemConfig,
+  systemConfigProperties: SystemConfigProperties,
   private val restClientBuilder: RestClient.Builder
 ) {
 
-  private val niconicoUserSession: String? = systemConfig.niconicoUserSessionCookieValue
+  private val niconicoUserSession: String? = systemConfigProperties.niconicoUserSessionCookieValue
 
-  private var cookieStorePersistor: CookieStorePersistor? = systemConfig.cookieJarTxt?.let { NetscapeTxtCookieStorePersistor(it) }
+  private var cookieStorePersistor: CookieStorePersistor? = systemConfigProperties.cookieJarTxt?.let { NetscapeTxtCookieStorePersistor(it) }
   private var cookieStore: CookieStore? = cookieStorePersistor?.load()
 
   @Bean

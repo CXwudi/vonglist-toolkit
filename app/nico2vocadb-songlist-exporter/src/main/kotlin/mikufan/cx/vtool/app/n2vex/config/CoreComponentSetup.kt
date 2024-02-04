@@ -4,17 +4,17 @@ import mikufan.cx.vtool.core.n2vex.MainExporter
 import mikufan.cx.vtool.core.n2vex.config.IOConfig
 import mikufan.cx.vtool.core.n2vex.config.Preference
 import mikufan.cx.vtool.module.model.niconico.NicoListItem
-import mikufan.cx.vtool.module.model.vocadb.PV
 import mikufan.cx.vtool.module.model.vocadb.VocaDBSongListItem
+import mikufan.cx.vtool.module.model.vocadb.VocaDbCacheKeys
 import mikufan.cx.vtool.service.api.api.NicoListApi
 import mikufan.cx.vtool.service.api.api.VocaDbSongByPvApi
-import mikufan.cx.vtool.service.api.cache.KVCache
 import mikufan.cx.vtool.service.api.io.ItemRecorder
-import mikufan.cx.vtool.service.impl.ApiBasedNicoListFetcher
-import mikufan.cx.vtool.service.impl.ApiBasedVocaDbPvMapper
+import mikufan.cx.vtool.service.impl.NicoListFetcher
 import mikufan.cx.vtool.service.impl.ToCsvItemRecorder
 import mikufan.cx.vtool.service.impl.VocaDbCompatibleSongListCsvProducer
+import mikufan.cx.vtool.service.impl.VocaDbPvMapper
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.cache.CacheManager
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -25,13 +25,17 @@ class CoreComponentSetup {
   fun nicoListFetcher(
     nicoListApi: NicoListApi,
     preference: Preference,
-  ) = ApiBasedNicoListFetcher(nicoListApi, preference.usePrivateApi)
+  ) = NicoListFetcher(nicoListApi, preference.usePrivateApi)
 
   @Bean
   fun vocadbPvMapper(
     vocaDbSongByPvApi: VocaDbSongByPvApi,
-    cache: KVCache<PV, Long>,
-  ) = ApiBasedVocaDbPvMapper(vocaDbSongByPvApi, cache)
+    cacheManager: CacheManager,
+  ) : VocaDbPvMapper {
+    val cache = cacheManager.getCache(VocaDbCacheKeys.SONG_BY_PV)
+      ?: throw IllegalStateException("Cache ${VocaDbCacheKeys.SONG_BY_PV} not found")
+    return VocaDbPvMapper(vocaDbSongByPvApi, cache)
+  }
 
   @Bean
   fun notFoundCsvRecorder(
@@ -53,8 +57,8 @@ class CoreComponentSetup {
   fun mainExporter(
     ioConfig: IOConfig,
     preference: Preference,
-    nicoListFetcher: ApiBasedNicoListFetcher,
-    vocadbPvMapper: ApiBasedVocaDbPvMapper,
+    nicoListFetcher: NicoListFetcher,
+    vocadbPvMapper: VocaDbPvMapper,
     @Qualifier("notFoundCsvRecorder") notFoundCsvRecorder: ToCsvItemRecorder<NicoListItem>,
     @Qualifier("outputCsvRecorder") outputCsvRecorder: ItemRecorder<VocaDBSongListItem>,
   ) = MainExporter(

@@ -3,16 +3,14 @@ package mikufan.cx.vtool.service.impl
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vtool.module.model.niconico.NicoListItem
 import mikufan.cx.vtool.module.model.niconico.NicoListSortPreference
-import mikufan.cx.vtool.service.api.NicoListFetcher
-import mikufan.cx.vtool.service.api.NicoListItemIterator
 import mikufan.cx.vtool.service.api.api.NicoListApi
 
-class ApiBasedNicoListFetcher(
+class NicoListFetcher(
   private val nicoListApi: NicoListApi,
   private val usePrivateApi: Boolean,
-) : NicoListFetcher {
+) {
 
-  override fun readAllSongsFromList(
+  fun readAllSongsFromList(
     id: Long,
     sortPreference: NicoListSortPreference,
   ): NicoListItemIterator {
@@ -20,6 +18,8 @@ class ApiBasedNicoListFetcher(
     return LazyApiCallListItemIterator(nicoListApi, id, sortPreference, usePrivateApi)
   }
 }
+
+interface NicoListItemIterator : Iterator<NicoListItem>
 
 class LazyApiCallListItemIterator(
   private val nicoListApi: NicoListApi,
@@ -31,9 +31,9 @@ class LazyApiCallListItemIterator(
   companion object {
     private const val DEFAULT_PAGE_SIZE = 100
   }
-
   val buffer = ArrayDeque<NicoListItem>(DEFAULT_PAGE_SIZE)
   var hasNext = true
+
   var page = 1
 
   override fun hasNext(): Boolean {
@@ -44,7 +44,6 @@ class LazyApiCallListItemIterator(
   }
 
   override fun next(): NicoListItem = buffer.removeFirst()
-
   private fun doCallApi() {
     val response = if (usePrivateApi) {
       nicoListApi.getPrivateList(id, sortPreference.sortKey, sortPreference.sortOrder, page++, DEFAULT_PAGE_SIZE)
