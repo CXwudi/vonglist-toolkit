@@ -1,6 +1,7 @@
 package mikufan.cx.vtool.app.n2vex.config
 
 import mikufan.cx.vtool.core.n2vex.MainExporter
+import mikufan.cx.vtool.core.n2vex.MainExporterWithLocalWrite
 import mikufan.cx.vtool.core.n2vex.config.IOConfig
 import mikufan.cx.vtool.core.n2vex.config.Preference
 import mikufan.cx.vtool.module.model.niconico.NicoListItem
@@ -52,20 +53,24 @@ class CoreComponentSetup {
     ToCsvItemRecorder<VocaDBSongListItem>(ioConfig.outputCsv)
   }
 
-
   @Bean
   fun mainExporter(
-    ioConfig: IOConfig,
-    preference: Preference,
     nicoListFetcher: NicoListFetcher,
     vocadbPvMapper: VocaDbPvMapper,
+  ) = MainExporter(nicoListFetcher, vocadbPvMapper)
+
+
+  @Bean
+  fun mainExporterWithLocalWrite(
+    ioConfig: IOConfig,
+    preference: Preference,
+    mainExporter: MainExporter,
     @Qualifier("notFoundCsvRecorder") notFoundCsvRecorder: ToCsvItemRecorder<NicoListItem>,
     @Qualifier("outputCsvRecorder") outputCsvRecorder: ItemRecorder<VocaDBSongListItem>,
-  ) = MainExporter(
+  ) = MainExporterWithLocalWrite(
     ioConfig,
     preference,
-    nicoListFetcher,
-    vocadbPvMapper,
+    mainExporter,
     notFoundCsvRecorder,
     outputCsvRecorder,
   )

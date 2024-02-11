@@ -1,41 +1,29 @@
 package mikufan.cx.vtool.core.n2vex
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vtool.core.n2vex.config.IOConfig
-import mikufan.cx.vtool.core.n2vex.config.Preference
 import mikufan.cx.vtool.module.model.niconico.NicoListItem
 import mikufan.cx.vtool.module.model.niconico.NicoListSortPreference
 import mikufan.cx.vtool.module.model.vocadb.PV
 import mikufan.cx.vtool.module.model.vocadb.PvService
 import mikufan.cx.vtool.module.model.vocadb.VocaDBSongListItem
-import mikufan.cx.vtool.service.api.io.ItemRecorder
 import mikufan.cx.vtool.service.impl.NicoListFetcher
 import mikufan.cx.vtool.service.impl.VocaDbPvMapper
 
 class MainExporter(
-  private val ioConfig: IOConfig,
-  preference: Preference,
   private val listFetcher: NicoListFetcher,
   private val pvMapper: VocaDbPvMapper,
-  private val notFoundListItemWriter: ItemRecorder<NicoListItem>,
-  private val foundListItemWriter: ItemRecorder<VocaDBSongListItem>,
-) : Runnable {
+) {
 
-  private val sortPreference = NicoListSortPreference(preference.sortKey, preference.sortOrder)
-
-  override fun run() {
-    val songsItr = listFetcher.readAllSongsFromList(ioConfig.nicoListId, sortPreference)
+  fun exportToVocaDbList(nicoListId: Long, sortPreference: NicoListSortPreference): Nico2VocaDbMapResult {
+    val songsItr = listFetcher.readAllSongsFromList(nicoListId, sortPreference)
     val resultList = mapNicoListToVocaDbList(songsItr)
     val notFoundList = resultList.filter { it.vocaDbId == null }.map { it.nicoItem }
     val foundList = resultList.filter { it.vocaDbId != null }.map { VocaDBSongListItem(it.vocaDbId!!, it.nicoItem.note) }
     log.info { "Found ${foundList.size} songs, not found ${notFoundList.size} songs. Now recording all results" }
-    notFoundListItemWriter.recordAll(notFoundList)
-    foundListItemWriter.recordAll(foundList)
-    log.info { "Done" }
+    return Nico2VocaDbMapResult(notFoundList, foundList)
   }
 
   private fun mapNicoListToVocaDbList(songsItr: Iterator<NicoListItem>): List<MappedResult> = runBlocking(Dispatchers.Default) {
@@ -47,12 +35,16 @@ class MainExporter(
         MappedResult(song, vocadbId)
       }
   }
-
 }
 
-private data class MappedResult(
+data class MappedResult(
   val nicoItem: NicoListItem,
   val vocaDbId: Long?,
+)
+
+data class Nico2VocaDbMapResult(
+  val notFoundList: List<NicoListItem>,
+  val foundList: List<VocaDBSongListItem>,
 )
 
 private val log = KInlineLogging.logger()

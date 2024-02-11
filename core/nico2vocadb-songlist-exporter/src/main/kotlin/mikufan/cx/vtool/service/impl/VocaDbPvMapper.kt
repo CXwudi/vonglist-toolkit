@@ -13,9 +13,9 @@ class VocaDbPvMapper(
   fun tryFindRecord(pv: PV): Long? {
     log.info { "Trying to map VocaDB entry for $pv" }
     val (pvId, pvService, _) = pv
-    val cached = cache[pv]
+    val cached = cache[pv.toKey()]
     if (cached != null) {
-      return cached.get() as Long?
+      return cached.get() as Long? // TODO: cached.get() isn't the actual value but a wrapper...
     }
     val result = songByPvApi.getSongByPv(pvId, pvService)
     return if (result == null) {
@@ -30,8 +30,10 @@ class VocaDbPvMapper(
 
   }
 
+  private fun PV.toKey() = "$pvId@$pvService"
+
   private fun handleCache(pv: PV, vocadbId: Long?) {
-    cache.put(pv, vocadbId)
+    cache.put(pv.toKey(), vocadbId)
   }
 }
 

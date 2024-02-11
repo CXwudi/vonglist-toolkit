@@ -13,11 +13,15 @@ import org.infinispan.manager.EmbeddedCacheManager
 import org.infinispan.spring.starter.embedded.InfinispanCacheConfigurer
 import org.infinispan.spring.starter.embedded.InfinispanGlobalConfigurationCustomizer
 import org.springframework.boot.autoconfigure.cache.CacheProperties
+import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.util.concurrent.TimeUnit
 
 @Configuration(proxyBeanMethods = false)
+@EnableCaching
+@EnableConfigurationProperties(CacheProperties::class)
 class CacheConfig {
 
   @Bean
@@ -32,8 +36,7 @@ class CacheConfig {
   @Bean
   fun enableCachePersistent(
     cacheConfigProperties: CacheConfigProperties,
-    springCacheConfigProperties: CacheProperties,
-  ) = EnablePersistentCacheManagerConfigurer(cacheConfigProperties, springCacheConfigProperties)
+  ) = EnablePersistentCacheManagerConfigurer(cacheConfigProperties,)
 
   @Bean
   fun jCacheManager(infinispanCacheManager: EmbeddedCacheManager) = JCacheManager(null, infinispanCacheManager, null)
@@ -56,7 +59,7 @@ class EnableCustomPersistentLocationGlobalConfigCustomizer(
 
 class EnablePersistentCacheManagerConfigurer(
   cacheConfigProperties: CacheConfigProperties,
-  springCacheConfigProperties: CacheProperties,
+  private val additionalCacheNames: List<String> = emptyList(),
 ) : InfinispanCacheConfigurer {
   private val configuration = ConfigurationBuilder()
     .persistence().passivation(false)
@@ -66,11 +69,12 @@ class EnablePersistentCacheManagerConfigurer(
     .expiration().lifespan(cacheConfigProperties.ttl.toMillis(), TimeUnit.MILLISECONDS)
     .build()
 
-  private val cacheNames = springCacheConfigProperties.cacheNames
-
   override fun configureCache(manager: EmbeddedCacheManager) {
-    AllCacheNames().forEach { manager.defineConfiguration(it, configuration) }
-    cacheNames.forEach { manager.defineConfiguration(it, configuration) }
+    val allCacheNames = buildSet {
+      addAll(AllCacheNames())
+      addAll(additionalCacheNames)
+    }
+    allCacheNames.forEach { manager.defineConfiguration(it, configuration) }
   }
 }
 
