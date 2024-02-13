@@ -39,3 +39,4 @@ out/
 
 ### My Own ###
 *.csv
+**.cache
