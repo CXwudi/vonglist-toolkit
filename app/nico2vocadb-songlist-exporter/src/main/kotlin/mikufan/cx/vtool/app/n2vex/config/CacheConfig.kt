@@ -1,11 +1,6 @@
 package mikufan.cx.vtool.app.n2vex.config
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import mikufan.cx.vtool.module.model.AllCacheNames
-import org.infinispan.commons.dataconversion.MediaType
-import org.infinispan.commons.io.ByteBuffer
-import org.infinispan.commons.io.ByteBufferImpl
-import org.infinispan.commons.marshall.AbstractMarshaller
 import org.infinispan.configuration.cache.ConfigurationBuilder
 import org.infinispan.configuration.global.GlobalConfigurationBuilder
 import org.infinispan.jcache.embedded.JCacheManager
@@ -25,13 +20,9 @@ import java.util.concurrent.TimeUnit
 class CacheConfig {
 
   @Bean
-  fun jacksonJsonNodeMarshaller(objectMapper: ObjectMapper) = JacksonJsonNodeMarshaller(objectMapper)
-
-  @Bean
   fun enableCustomPersistentLocation(
     cacheConfigProperties: CacheConfigProperties,
-    jsonNodeMarshaller: JacksonJsonNodeMarshaller,
-  ) = EnableCustomPersistentLocationGlobalConfigCustomizer(cacheConfigProperties, jsonNodeMarshaller)
+  ) = EnableCustomPersistentLocationGlobalConfigCustomizer(cacheConfigProperties)
 
   @Bean
   fun enableCachePersistent(
@@ -44,16 +35,13 @@ class CacheConfig {
 
 class EnableCustomPersistentLocationGlobalConfigCustomizer(
   cacheConfigProperties: CacheConfigProperties,
-  private val jsonNodeMarshaller: JacksonJsonNodeMarshaller,
 ) : InfinispanGlobalConfigurationCustomizer {
 
   private val dir = cacheConfigProperties.dir
   override fun customize(builder: GlobalConfigurationBuilder) {
     builder.globalState().enable()
       .persistentLocation(dir.toString())
-      .serialization().apply {
-        marshaller(jsonNodeMarshaller).allowList().addRegexps<Any>("com\\.fasterxml\\.jackson.*")
-      }
+      .serialization()
   }
 }
 
@@ -75,27 +63,5 @@ class EnablePersistentCacheManagerConfigurer(
       addAll(additionalCacheNames)
     }
     allCacheNames.forEach { manager.defineConfiguration(it, configuration) }
-  }
-}
-
-class JacksonJsonNodeMarshaller(
-  private val objectMapper: ObjectMapper,
-) : AbstractMarshaller() {
-
-  override fun objectFromByteBuffer(buf: ByteArray?, offset: Int, length: Int): Any {
-    return objectMapper.readTree(buf)
-  }
-
-  override fun objectToBuffer(o: Any?, estimatedSize: Int): ByteBuffer {
-    val bytes = objectMapper.writeValueAsBytes(o)
-    return ByteBufferImpl.create(bytes)
-  }
-
-  override fun isMarshallable(o: Any?): Boolean {
-    return o != null
-  }
-
-  override fun mediaType(): MediaType {
-    return MediaType.APPLICATION_JSON
   }
 }
