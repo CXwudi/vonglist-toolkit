@@ -1,16 +1,17 @@
-package mikufan.cx.vtool.service.impl
+package mikufan.cx.vtool.component.httpservice.impl
 
 import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vtool.component.httpservice.api.PvMapper
+import mikufan.cx.vtool.component.httpservice.impl.api.VocaDbSongByPvApi
 import mikufan.cx.vtool.module.model.vocadb.PV
-import mikufan.cx.vtool.service.api.api.VocaDbSongByPvApi
 import org.springframework.cache.Cache
 
 class VocaDbPvMapper(
   private val songByPvApi: VocaDbSongByPvApi,
   private val cache: Cache
-) {
+) : PvMapper {
 
-  fun tryFindRecord(pv: PV): Long? {
+  override fun tryFindRecord(pv: PV): Long? {
     log.info { "Trying to map VocaDB entry for $pv" }
     val (pvId, pvService, _) = pv
     val cached = cache[pv.toKey()]

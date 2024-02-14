@@ -1,7 +1,7 @@
 package mikufan.cx.vtool.app.n2vex.config
 
-import mikufan.cx.vtool.service.api.api.VocaDbSongByPvApi
-import mikufan.cx.vtool.service.impl.VocaDbRestClientCustomizer
+import mikufan.cx.vtool.component.httpservice.impl.api.VocaDbSongByPvApi
+import mikufan.cx.vtool.component.httpservice.impl.customizer.VocaDbRestClientCustomizer
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

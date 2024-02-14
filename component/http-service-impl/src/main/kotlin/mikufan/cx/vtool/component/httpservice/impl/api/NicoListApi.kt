@@ -1,4 +1,4 @@
-package mikufan.cx.vtool.service.api.api
+package mikufan.cx.vtool.component.httpservice.impl.api
 
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min

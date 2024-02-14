@@ -1,4 +1,4 @@
-package mikufan.cx.vtool.service.impl
+package mikufan.cx.vtool.component.httpservice.impl.customizer
 
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.springframework.boot.web.client.RestClientCustomizer

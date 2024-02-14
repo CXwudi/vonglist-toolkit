@@ -1,14 +1,14 @@
 package mikufan.cx.vtool.app.n2vex.config
 
 import jakarta.annotation.PreDestroy
+import mikufan.cx.vtool.component.httpservice.api.http.CookieStorePersistor
+import mikufan.cx.vtool.component.httpservice.impl.NetscapeTxtCookieStorePersistor
+import mikufan.cx.vtool.component.httpservice.impl.api.NicoListApi
+import mikufan.cx.vtool.component.httpservice.impl.customizer.DefaultHeadersRestClientCustomizer
+import mikufan.cx.vtool.component.httpservice.impl.customizer.NvApiRestClientCustomizer
+import mikufan.cx.vtool.component.httpservice.impl.customizer.WithApacheHttpClientRestClientCustomizer
 import mikufan.cx.vtool.module.model.niconico.NicoListSortKey
 import mikufan.cx.vtool.module.model.niconico.NicoListSortOrder
-import mikufan.cx.vtool.service.api.api.NicoListApi
-import mikufan.cx.vtool.service.api.http.CookieStorePersistor
-import mikufan.cx.vtool.service.impl.DefaultHeadersRestClientCustomizer
-import mikufan.cx.vtool.service.impl.NetscapeTxtCookieStorePersistor
-import mikufan.cx.vtool.service.impl.NvApiRestClientCustomizer
-import mikufan.cx.vtool.service.impl.WithApacheHttpClientRestClientCustomizer
 import org.apache.hc.client5.http.cookie.CookieStore
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.client5.http.impl.classic.HttpClients

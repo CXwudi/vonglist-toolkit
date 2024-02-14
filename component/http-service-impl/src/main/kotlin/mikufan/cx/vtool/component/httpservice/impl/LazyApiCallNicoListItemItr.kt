@@ -1,27 +1,11 @@
-package mikufan.cx.vtool.service.impl
+package mikufan.cx.vtool.component.httpservice.impl
 
-import mikufan.cx.inlinelogging.KInlineLogging
+import mikufan.cx.vtool.component.httpservice.api.NicoListItemIterator
+import mikufan.cx.vtool.component.httpservice.impl.api.NicoListApi
 import mikufan.cx.vtool.module.model.niconico.NicoListItem
 import mikufan.cx.vtool.module.model.niconico.NicoListSortPreference
-import mikufan.cx.vtool.service.api.api.NicoListApi
 
-class NicoListFetcher(
-  private val nicoListApi: NicoListApi,
-  private val usePrivateApi: Boolean,
-) {
-
-  fun readAllSongsFromList(
-    id: Long,
-    sortPreference: NicoListSortPreference,
-  ): NicoListItemIterator {
-    log.info { "Lazily reading all songs from list $id with sort preference $sortPreference" }
-    return LazyApiCallListItemIterator(nicoListApi, id, sortPreference, usePrivateApi)
-  }
-}
-
-interface NicoListItemIterator : Iterator<NicoListItem>
-
-class LazyApiCallListItemIterator(
+class LazyApiCallNicoListItemItr(
   private val nicoListApi: NicoListApi,
   private val id: Long,
   private val sortPreference: NicoListSortPreference,
@@ -77,5 +61,3 @@ class LazyApiCallListItemIterator(
     }
   }
 }
-
-private val log = KInlineLogging.logger()

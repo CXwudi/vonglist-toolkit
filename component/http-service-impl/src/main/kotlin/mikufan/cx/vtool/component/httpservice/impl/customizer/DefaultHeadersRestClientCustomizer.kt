@@ -1,4 +1,4 @@
-package mikufan.cx.vtool.service.impl
+package mikufan.cx.vtool.component.httpservice.impl.customizer
 
 import org.springframework.boot.web.client.RestClientCustomizer
 import org.springframework.util.MultiValueMap

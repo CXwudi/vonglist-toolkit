@@ -5,6 +5,8 @@ plugins {
 dependencies {
   implementation(project(":shared:all-model"))
   implementation(project(":core:nico2vocadb-songlist-exporter"))
+  implementation(project(":component:io-impl"))
+  implementation(project(":component:http-service-impl"))
   implementation("org.springframework.boot:spring-boot-starter")
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.boot:spring-boot-starter-json")
