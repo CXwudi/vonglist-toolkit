@@ -15,7 +15,7 @@ class VocaDbPvMapper(
     val (pvId, pvService, _) = pv
     val cached = cache[pv.toKey()]
     if (cached != null) {
-      return cached.get() as Long? // TODO: cached.get() isn't the actual value but a wrapper...
+      return cached.get() as Long?
     }
     val result = songByPvApi.getSongByPv(pvId, pvService)
     return if (result == null) {
