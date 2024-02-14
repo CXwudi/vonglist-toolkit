@@ -6,7 +6,6 @@ import mikufan.cx.vtool.component.httpservice.impl.NetscapeTxtCookieStorePersist
 import mikufan.cx.vtool.component.httpservice.impl.api.NicoListApi
 import mikufan.cx.vtool.component.httpservice.impl.customizer.DefaultHeadersRestClientCustomizer
 import mikufan.cx.vtool.component.httpservice.impl.customizer.NvApiRestClientCustomizer
-import mikufan.cx.vtool.component.httpservice.impl.customizer.WithApacheHttpClientRestClientCustomizer
 import mikufan.cx.vtool.module.model.niconico.NicoListSortKey
 import mikufan.cx.vtool.module.model.niconico.NicoListSortOrder
 import org.apache.hc.client5.http.cookie.CookieStore
@@ -18,6 +17,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.convert.converter.Converter
 import org.springframework.format.support.DefaultFormattingConversionService
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.support.RestClientAdapter
 import org.springframework.web.service.invoker.HttpServiceProxyFactory
@@ -45,7 +45,7 @@ class NicoNicoHttpConfig(
   fun niconicoHttpServiceProxyFactory(
     niconicoHttpClient: CloseableHttpClient,
   ): HttpServiceProxyFactory {
-    WithApacheHttpClientRestClientCustomizer(niconicoHttpClient).customize(restClientBuilder)
+    restClientBuilder.requestFactory(HttpComponentsClientHttpRequestFactory(niconicoHttpClient))
     NvApiRestClientCustomizer(enableWriteOperations = false).customize(restClientBuilder)
     if (!niconicoUserSession.isNullOrBlank()) {
       val headerWithUserSession = mapOf(
