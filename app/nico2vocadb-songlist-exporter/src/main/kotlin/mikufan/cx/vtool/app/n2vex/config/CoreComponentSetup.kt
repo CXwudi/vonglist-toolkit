@@ -13,9 +13,9 @@ import mikufan.cx.vtool.core.n2vex.MainExporter
 import mikufan.cx.vtool.core.n2vex.MainExporterWithLocalWrite
 import mikufan.cx.vtool.core.n2vex.config.IOConfig
 import mikufan.cx.vtool.core.n2vex.config.Preference
-import mikufan.cx.vtool.module.model.niconico.NicoListItem
-import mikufan.cx.vtool.module.model.vocadb.VocaDBSongListItem
-import mikufan.cx.vtool.module.model.vocadb.VocaDbCacheKeys
+import mikufan.cx.vtool.shared.model.niconico.NicoListItem
+import mikufan.cx.vtool.shared.model.vocadb.VocaDBSongListItem
+import mikufan.cx.vtool.shared.model.vocadb.VocaDbCacheKeys
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.cache.CacheManager
 import org.springframework.context.annotation.Bean

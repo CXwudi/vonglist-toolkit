@@ -1,7 +1,7 @@
 package mikufan.cx.vtool.component.httpservice.api
 
-import mikufan.cx.vtool.module.model.niconico.NicoListItem
-import mikufan.cx.vtool.module.model.niconico.NicoListSortPreference
+import mikufan.cx.vtool.shared.model.niconico.NicoListItem
+import mikufan.cx.vtool.shared.model.niconico.NicoListSortPreference
 
 interface NicoListFetcher {
   fun readAllSongsFromList(

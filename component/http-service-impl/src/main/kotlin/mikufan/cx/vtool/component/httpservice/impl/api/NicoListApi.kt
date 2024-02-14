@@ -2,9 +2,9 @@ package mikufan.cx.vtool.component.httpservice.impl.api
 
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min
-import mikufan.cx.vtool.module.model.niconico.NicoListSortKey
-import mikufan.cx.vtool.module.model.niconico.NicoListSortOrder
-import mikufan.cx.vtool.module.model.niconico.NvApiResponse
+import mikufan.cx.vtool.shared.model.niconico.NicoListSortKey
+import mikufan.cx.vtool.shared.model.niconico.NicoListSortOrder
+import mikufan.cx.vtool.shared.model.niconico.NvApiResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PathVariable

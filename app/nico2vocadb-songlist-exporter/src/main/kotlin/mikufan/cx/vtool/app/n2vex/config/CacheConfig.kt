@@ -1,6 +1,6 @@
 package mikufan.cx.vtool.app.n2vex.config
 
-import mikufan.cx.vtool.module.model.AllCacheNames
+import mikufan.cx.vtool.shared.model.AllCacheNames
 import org.infinispan.configuration.cache.ConfigurationBuilder
 import org.infinispan.configuration.global.GlobalConfigurationBuilder
 import org.infinispan.jcache.embedded.JCacheManager

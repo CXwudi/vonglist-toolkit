@@ -1,4 +1,4 @@
-package mikufan.cx.vtool.module.model.niconico
+package mikufan.cx.vtool.shared.model.niconico
 
 import java.util.*
 

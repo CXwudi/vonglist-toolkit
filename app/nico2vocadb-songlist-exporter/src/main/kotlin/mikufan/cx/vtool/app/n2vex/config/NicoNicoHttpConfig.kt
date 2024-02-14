@@ -6,8 +6,8 @@ import mikufan.cx.vtool.component.httpservice.impl.NetscapeTxtCookieStorePersist
 import mikufan.cx.vtool.component.httpservice.impl.api.NicoListApi
 import mikufan.cx.vtool.component.httpservice.impl.customizer.DefaultHeadersRestClientCustomizer
 import mikufan.cx.vtool.component.httpservice.impl.customizer.NvApiRestClientCustomizer
-import mikufan.cx.vtool.module.model.niconico.NicoListSortKey
-import mikufan.cx.vtool.module.model.niconico.NicoListSortOrder
+import mikufan.cx.vtool.shared.model.niconico.NicoListSortKey
+import mikufan.cx.vtool.shared.model.niconico.NicoListSortOrder
 import org.apache.hc.client5.http.cookie.CookieStore
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.client5.http.impl.classic.HttpClients

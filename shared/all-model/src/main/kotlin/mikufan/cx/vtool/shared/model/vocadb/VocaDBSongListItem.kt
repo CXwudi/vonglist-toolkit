@@ -1,4 +1,4 @@
-package mikufan.cx.vtool.module.model.vocadb
+package mikufan.cx.vtool.shared.model.vocadb
 
 data class VocaDBSongListItem(
   val id: Long,

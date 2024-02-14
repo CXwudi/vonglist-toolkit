@@ -6,11 +6,11 @@ import kotlinx.coroutines.runBlocking
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vtool.component.httpservice.api.NicoListFetcher
 import mikufan.cx.vtool.component.httpservice.api.PvMapper
-import mikufan.cx.vtool.module.model.niconico.NicoListItem
-import mikufan.cx.vtool.module.model.niconico.NicoListSortPreference
-import mikufan.cx.vtool.module.model.vocadb.PV
-import mikufan.cx.vtool.module.model.vocadb.PvService
-import mikufan.cx.vtool.module.model.vocadb.VocaDBSongListItem
+import mikufan.cx.vtool.shared.model.niconico.NicoListItem
+import mikufan.cx.vtool.shared.model.niconico.NicoListSortPreference
+import mikufan.cx.vtool.shared.model.vocadb.PV
+import mikufan.cx.vtool.shared.model.vocadb.PvService
+import mikufan.cx.vtool.shared.model.vocadb.VocaDBSongListItem
 
 class MainExporter(
   private val listFetcher: NicoListFetcher,

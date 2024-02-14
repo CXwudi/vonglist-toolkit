@@ -2,8 +2,8 @@ package mikufan.cx.vtool.component.httpservice.impl
 
 import mikufan.cx.vtool.component.httpservice.api.NicoListItemIterator
 import mikufan.cx.vtool.component.httpservice.impl.api.NicoListApi
-import mikufan.cx.vtool.module.model.niconico.NicoListItem
-import mikufan.cx.vtool.module.model.niconico.NicoListSortPreference
+import mikufan.cx.vtool.shared.model.niconico.NicoListItem
+import mikufan.cx.vtool.shared.model.niconico.NicoListSortPreference
 
 class LazyApiCallNicoListItemItr(
   private val nicoListApi: NicoListApi,

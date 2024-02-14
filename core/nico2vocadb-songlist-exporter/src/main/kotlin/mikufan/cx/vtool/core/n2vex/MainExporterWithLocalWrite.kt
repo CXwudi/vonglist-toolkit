@@ -5,9 +5,9 @@ import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vtool.component.io.api.ItemRecorder
 import mikufan.cx.vtool.core.n2vex.config.IOConfig
 import mikufan.cx.vtool.core.n2vex.config.Preference
-import mikufan.cx.vtool.module.model.niconico.NicoListItem
-import mikufan.cx.vtool.module.model.niconico.NicoListSortPreference
-import mikufan.cx.vtool.module.model.vocadb.VocaDBSongListItem
+import mikufan.cx.vtool.shared.model.niconico.NicoListItem
+import mikufan.cx.vtool.shared.model.niconico.NicoListSortPreference
+import mikufan.cx.vtool.shared.model.vocadb.VocaDBSongListItem
 
 class MainExporterWithLocalWrite(
   private val ioConfig: IOConfig,

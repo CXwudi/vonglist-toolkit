@@ -3,7 +3,7 @@ package mikufan.cx.vtool.component.httpservice.impl
 import mikufan.cx.inlinelogging.KInlineLogging
 import mikufan.cx.vtool.component.httpservice.api.PvMapper
 import mikufan.cx.vtool.component.httpservice.impl.api.VocaDbSongByPvApi
-import mikufan.cx.vtool.module.model.vocadb.PV
+import mikufan.cx.vtool.shared.model.vocadb.PV
 import org.springframework.cache.Cache
 
 class VocaDbPvMapper(
