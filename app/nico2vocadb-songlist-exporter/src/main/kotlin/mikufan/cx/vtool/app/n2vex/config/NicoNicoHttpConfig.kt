@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.convert.converter.Converter
 import org.springframework.format.support.DefaultFormattingConversionService
-import org.springframework.util.MultiValueMapAdapter
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.support.RestClientAdapter
 import org.springframework.web.service.invoker.HttpServiceProxyFactory
@@ -52,7 +51,7 @@ class NicoNicoHttpConfig(
       val headerWithUserSession = mapOf(
         HttpHeaders.COOKIE to listOf("user_session=$niconicoUserSession")
       )
-      DefaultHeadersRestClientCustomizer(MultiValueMapAdapter(headerWithUserSession)).customize(restClientBuilder)
+      DefaultHeadersRestClientCustomizer(headerWithUserSession).customize(restClientBuilder)
     }
     val niconicoConversionService = DefaultFormattingConversionService().apply {
       addConverter(NicoListSortKeyConverter())
