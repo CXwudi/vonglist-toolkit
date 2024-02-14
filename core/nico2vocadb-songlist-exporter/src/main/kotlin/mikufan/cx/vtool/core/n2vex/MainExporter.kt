@@ -37,7 +37,7 @@ class MainExporter(
   }
 }
 
-data class MappedResult(
+internal data class MappedResult(
   val nicoItem: NicoListItem,
   val vocaDbId: Long?,
 )
