@@ -19,7 +19,7 @@ class ToCsvItemRecorder<T>(
     val csvMapper = CsvMapper()
     val schema: CsvSchema = csvMapper
       .schemaFor(clazz)
-      .apply { if (withHeader) withHeader() }
+      .let { if (withHeader) it.withHeader() else it }
       .withColumnSeparator(',')
     writer = csvMapper.writer(schema).writeValues(csvFile.toFile())
   }
