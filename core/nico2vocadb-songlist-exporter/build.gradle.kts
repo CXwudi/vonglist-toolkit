@@ -9,4 +9,5 @@ dependencies {
   api(project(":component:http-service-api"))
   api("org.springframework.boot:spring-boot")
   api("org.springframework:spring-web")
+  api("com.github.CXwudi:kotlin-jvm-inline-logging")
 }
