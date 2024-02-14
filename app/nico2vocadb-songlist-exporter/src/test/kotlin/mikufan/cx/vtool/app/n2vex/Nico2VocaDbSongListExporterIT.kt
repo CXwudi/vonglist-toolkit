@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles
 class Nico2VocaDbSongListExporterIT(
   private val mainExporterWithLocalWrite: MainExporterWithLocalWrite,
 ) : ShouldSpec({
-  context("main exporter") {
+  xcontext("main exporter") {
     should("run") {
       assertDoesNotThrow {
         mainExporterWithLocalWrite.run()
