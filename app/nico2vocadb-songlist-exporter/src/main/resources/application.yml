@@ -13,6 +13,8 @@ preference:
   sort-key:
   # the order of the sort-key above
   # enum of: asc, desc
+  # can be null, which means the default order.
+  # however, if sort-key is not null, it cannot be null.
   sort-order:
   # if your nico list is private, set this to true
   # if set to true, make sure to input either your user_session cookie value,
