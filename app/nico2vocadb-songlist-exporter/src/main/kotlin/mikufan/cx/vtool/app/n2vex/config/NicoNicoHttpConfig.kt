@@ -1,8 +1,8 @@
 package mikufan.cx.vtool.app.n2vex.config
 
 import jakarta.annotation.PreDestroy
-import mikufan.cx.vtool.component.httpservice.api.http.CookieStorePersistor
-import mikufan.cx.vtool.component.httpservice.impl.NetscapeTxtCookieStorePersistor
+import mikufan.cx.vtool.component.apachehttpclientutil.api.CookieStorePersistor
+import mikufan.cx.vtool.component.apachehttpclientutil.impl.NetscapeTxtCookieStorePersistor
 import mikufan.cx.vtool.component.httpservice.impl.api.NicoListApi
 import mikufan.cx.vtool.component.httpservice.impl.customizer.DefaultHeadersRestClientCustomizer
 import mikufan.cx.vtool.component.httpservice.impl.customizer.NvApiRestClientCustomizer

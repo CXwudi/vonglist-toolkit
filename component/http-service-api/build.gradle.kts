@@ -4,5 +4,4 @@ plugins {
 
 dependencies {
   api(project(":shared:all-model"))
-  api("org.apache.httpcomponents.client5:httpclient5")
 }

@@ -1,7 +1,7 @@
-package mikufan.cx.vtool.component.httpservice.impl
+package mikufan.cx.vtool.component.apachehttpclientutil.impl
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vtool.component.httpservice.api.http.CookieStorePersistor
+import mikufan.cx.vtool.component.apachehttpclientutil.api.CookieStorePersistor
 import org.apache.hc.client5.http.cookie.BasicCookieStore
 import org.apache.hc.client5.http.cookie.Cookie
 import org.apache.hc.client5.http.cookie.CookieStore

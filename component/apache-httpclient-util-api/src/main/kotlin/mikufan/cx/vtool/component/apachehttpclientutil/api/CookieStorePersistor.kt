@@ -1,4 +1,4 @@
-package mikufan.cx.vtool.component.httpservice.api.http
+package mikufan.cx.vtool.component.apachehttpclientutil.api
 
 import org.apache.hc.client5.http.cookie.CookieStore
 
