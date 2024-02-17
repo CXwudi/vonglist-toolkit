@@ -12,11 +12,13 @@ class VocaDbPvMapper(
 ) : PvMapper {
 
   override fun tryFindRecord(pv: PV): Long? {
-    log.info { "Trying to map VocaDB entry for $pv" }
     val (pvId, pvService, _) = pv
     val cached = cache[pv.toKey()]
     if (cached != null) {
+      log.info { "Found cached VocaDB entry for $pv" }
       return cached.get() as Long?
+    } else {
+      log.info { "Trying to fetch VocaDB entry for $pv from VocaDB API" }
     }
     val result = songByPvApi.getSongByPv(pvId, pvService)
     return if (result == null) {
