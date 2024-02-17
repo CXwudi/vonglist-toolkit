@@ -1,8 +1,8 @@
-package mikufan.cx.vtool.component.httpservice.impl
+package mikufan.cx.vtool.component.httpser.impl
 
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vtool.component.httpservice.api.PvMapper
-import mikufan.cx.vtool.component.httpservice.impl.api.VocaDbSongByPvApi
+import mikufan.cx.vtool.component.httpser.api.PvMapper
+import mikufan.cx.vtool.component.httpser.impl.api.VocaDbSongByPvApi
 import mikufan.cx.vtool.shared.model.vocadb.PV
 import org.springframework.cache.Cache
 

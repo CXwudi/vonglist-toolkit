@@ -1,11 +1,11 @@
 package mikufan.cx.vtool.app.n2vex.config
 
-import mikufan.cx.vtool.component.httpservice.api.NicoListFetcher
-import mikufan.cx.vtool.component.httpservice.api.PvMapper
-import mikufan.cx.vtool.component.httpservice.impl.NicoListFetcherImpl
-import mikufan.cx.vtool.component.httpservice.impl.VocaDbPvMapper
-import mikufan.cx.vtool.component.httpservice.impl.api.NicoListApi
-import mikufan.cx.vtool.component.httpservice.impl.api.VocaDbSongByPvApi
+import mikufan.cx.vtool.component.httpser.api.NicoListFetcher
+import mikufan.cx.vtool.component.httpser.api.PvMapper
+import mikufan.cx.vtool.component.httpser.impl.NicoListFetcherImpl
+import mikufan.cx.vtool.component.httpser.impl.VocaDbPvMapper
+import mikufan.cx.vtool.component.httpser.impl.api.NicoListApi
+import mikufan.cx.vtool.component.httpser.impl.api.VocaDbSongByPvApi
 import mikufan.cx.vtool.component.io.api.ItemRecorder
 import mikufan.cx.vtool.component.io.impl.ToCsvItemRecorder
 import mikufan.cx.vtool.component.io.impl.VocaDbCompatibleSongListCsvProducer

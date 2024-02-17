@@ -1,4 +1,4 @@
-package mikufan.cx.vtool.component.httpservice.impl.api
+package mikufan.cx.vtool.component.httpser.impl.api
 
 import com.fasterxml.jackson.databind.JsonNode
 import mikufan.cx.vtool.shared.model.vocadb.PvService

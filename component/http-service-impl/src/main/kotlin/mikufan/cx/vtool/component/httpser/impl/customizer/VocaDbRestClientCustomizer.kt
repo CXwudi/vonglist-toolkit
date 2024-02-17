@@ -1,4 +1,4 @@
-package mikufan.cx.vtool.component.httpservice.impl.customizer
+package mikufan.cx.vtool.component.httpser.impl.customizer
 
 import org.springframework.boot.web.client.RestClientCustomizer
 import org.springframework.web.client.RestClient

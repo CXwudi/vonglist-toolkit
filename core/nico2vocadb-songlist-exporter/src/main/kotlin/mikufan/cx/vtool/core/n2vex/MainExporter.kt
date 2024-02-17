@@ -4,8 +4,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import mikufan.cx.inlinelogging.KInlineLogging
-import mikufan.cx.vtool.component.httpservice.api.NicoListFetcher
-import mikufan.cx.vtool.component.httpservice.api.PvMapper
+import mikufan.cx.vtool.component.httpser.api.NicoListFetcher
+import mikufan.cx.vtool.component.httpser.api.PvMapper
 import mikufan.cx.vtool.shared.model.niconico.NicoListItem
 import mikufan.cx.vtool.shared.model.niconico.NicoListSortPreference
 import mikufan.cx.vtool.shared.model.vocadb.PV

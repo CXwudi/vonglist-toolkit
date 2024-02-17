@@ -1,7 +1,7 @@
-package mikufan.cx.vtool.component.httpservice.impl
+package mikufan.cx.vtool.component.httpser.impl
 
-import mikufan.cx.vtool.component.httpservice.api.NicoListItemIterator
-import mikufan.cx.vtool.component.httpservice.impl.api.NicoListApi
+import mikufan.cx.vtool.component.httpser.api.NicoListItemIterator
+import mikufan.cx.vtool.component.httpser.impl.api.NicoListApi
 import mikufan.cx.vtool.shared.model.niconico.NicoListItem
 import mikufan.cx.vtool.shared.model.niconico.NicoListSortPreference
 
