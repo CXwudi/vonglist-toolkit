@@ -21,7 +21,7 @@ class VocaDbPvMapper(
       log.info { "Trying to fetch VocaDB entry for $pv from VocaDB API" }
     }
     val result = songByPvApi.getSongByPv(pvId, pvService)
-    return if (result == null) {
+    return if (result == null || result.isNull) {
       log.warn { "No VocaDB entry found for $pv" }
       handleCache(pv, null)
       null
