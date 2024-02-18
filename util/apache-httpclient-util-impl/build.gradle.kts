@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-  api(project(":component:apache-httpclient-util-api"))
+  api(project(":util:apache-httpclient-util-api"))
   api("com.github.CXwudi:kotlin-jvm-inline-logging")
 }

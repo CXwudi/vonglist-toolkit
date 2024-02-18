@@ -35,7 +35,7 @@ gradleEnterprise {
 
 rootProject.name = "Vocaloid SongList Toolkit"
 
-val layers = listOf("shared", "component", "core", "app")
+val layers = listOf("shared", "component", "business-logic", "app", "util")
 
 for (layer in layers) {
   rootDir.toPath().resolve(layer).listDirectoryEntries()
