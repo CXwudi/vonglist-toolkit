@@ -7,8 +7,6 @@ import org.infinispan.jcache.embedded.JCacheManager
 import org.infinispan.manager.EmbeddedCacheManager
 import org.infinispan.spring.starter.embedded.InfinispanCacheConfigurer
 import org.infinispan.spring.starter.embedded.InfinispanGlobalConfigurationCustomizer
-import org.springframework.boot.autoconfigure.cache.CacheProperties
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,7 +14,6 @@ import java.util.concurrent.TimeUnit
 
 @Configuration(proxyBeanMethods = false)
 @EnableCaching
-@EnableConfigurationProperties(CacheProperties::class)
 class CacheConfig {
 
   @Bean
