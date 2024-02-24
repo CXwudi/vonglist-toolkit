@@ -7,7 +7,9 @@ import mikufan.cx.vtool.core.vsli.MainImporterWithLocalRead
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 
-@SpringBootTest
+@SpringBootTest(properties = [
+//  "system.http.cookie-jar-txt=vocadb.net_cookies.txt"
+])
 @ActiveProfiles("test")
 class VocaDbSongListImporterIT(
   private val mainImporterWithLocalRead: MainImporterWithLocalRead,
