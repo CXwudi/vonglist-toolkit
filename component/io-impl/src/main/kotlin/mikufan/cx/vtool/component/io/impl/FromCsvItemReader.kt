@@ -1,7 +1,9 @@
 package mikufan.cx.vtool.component.io.impl
 
 import com.fasterxml.jackson.dataformat.csv.CsvMapper
+import com.fasterxml.jackson.dataformat.csv.CsvParser
 import com.fasterxml.jackson.dataformat.csv.CsvSchema
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import mikufan.cx.vtool.component.io.api.ItemReader
 import java.nio.file.Path
 
@@ -23,12 +25,19 @@ class FromCsvItemReader<T>(
   private val iterator: Iterator<T>
 
   init {
+    val kotlinModule = KotlinModule.Builder().build()
     val csvMapper = CsvMapper()
+    csvMapper.registerModule(kotlinModule)
     val schema: CsvSchema = csvMapper
       .schemaFor(clazz)
       .let { if (withHeader) it.withHeader() else it }
       .withColumnSeparator(',')
-    iterator = csvMapper.readerFor(clazz).with(schema).readValues(csvFile.toFile())
+    iterator = csvMapper.readerFor(clazz).with(schema).withFeatures(
+      CsvParser.Feature.ALLOW_COMMENTS,
+      CsvParser.Feature.SKIP_EMPTY_LINES,
+      CsvParser.Feature.IGNORE_TRAILING_UNMAPPABLE,
+      CsvParser.Feature.TRIM_SPACES,
+    ).readValues(csvFile.toFile())
   }
 
   override fun read(): T? = if (iterator.hasNext()) iterator.next() else null

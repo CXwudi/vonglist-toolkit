@@ -8,4 +8,5 @@ dependencies {
   api(project(":shared:all-model"))
   implementation("com.fasterxml.jackson.core:jackson-databind")
   implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv")
+  implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
