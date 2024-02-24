@@ -1,16 +1,11 @@
 package mikufan.cx.vtool.app.n2vex.config
 
-import jakarta.annotation.PreDestroy
 import mikufan.cx.vtool.component.httpser.impl.api.NicoListApi
 import mikufan.cx.vtool.component.httpser.impl.customizer.DefaultHeadersRestClientCustomizer
 import mikufan.cx.vtool.component.httpser.impl.customizer.NvApiRestClientCustomizer
 import mikufan.cx.vtool.shared.model.niconico.NicoListSortKey
 import mikufan.cx.vtool.shared.model.niconico.NicoListSortOrder
-import mikufan.cx.vtool.util.apachehttpclient.api.CookieStorePersistor
-import mikufan.cx.vtool.util.apachehttpclient.impl.NetscapeTxtCookieStorePersistor
-import org.apache.hc.client5.http.cookie.CookieStore
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
-import org.apache.hc.client5.http.impl.classic.HttpClients
 import org.apache.hc.core5.http.HttpHeaders
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
@@ -30,16 +25,6 @@ class NicoNicoHttpConfig(
 ) {
 
   private val niconicoUserSession: String? = httpConfigProperties.niconicoUserSessionCookieValue
-
-  private var cookieStorePersistor: CookieStorePersistor? = httpConfigProperties.cookieJarTxt?.let { NetscapeTxtCookieStorePersistor(it) }
-  private var cookieStore: CookieStore? = cookieStorePersistor?.load()
-
-  @Bean
-  fun niconicoHttpClient(): CloseableHttpClient = HttpClients.custom().apply {
-    cookieStore?.let { setDefaultCookieStore(it) }
-  }
-    .useSystemProperties()
-    .build()
 
   @Bean
   fun niconicoHttpServiceProxyFactory(
@@ -67,10 +52,6 @@ class NicoNicoHttpConfig(
     @Qualifier("niconicoHttpServiceProxyFactory") httpServiceProxyFactory: HttpServiceProxyFactory,
   ) = httpServiceProxyFactory.createClient<NicoListApi>()
 
-  @PreDestroy
-  fun persist() {
-    cookieStorePersistor?.persist(cookieStore!!)
-  }
 }
 
 private class NicoListSortKeyConverter : Converter<NicoListSortKey, String> {
