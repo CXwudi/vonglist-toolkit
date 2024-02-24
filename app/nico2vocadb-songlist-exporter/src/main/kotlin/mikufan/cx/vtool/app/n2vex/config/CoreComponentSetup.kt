@@ -1,5 +1,7 @@
 package mikufan.cx.vtool.app.n2vex.config
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.asCoroutineDispatcher
 import mikufan.cx.vtool.component.httpser.api.NicoListFetcher
 import mikufan.cx.vtool.component.httpser.api.PvMapper
 import mikufan.cx.vtool.component.httpser.impl.NicoListFetcherImpl
@@ -20,9 +22,13 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.cache.CacheManager
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import java.util.concurrent.Executors
 
 @Configuration(proxyBeanMethods = false)
 class CoreComponentSetup {
+
+  @Bean
+  fun loomDispatcher(): CoroutineDispatcher = Executors.newVirtualThreadPerTaskExecutor().asCoroutineDispatcher()
 
   @Bean
   fun nicoListFetcher(
@@ -59,7 +65,8 @@ class CoreComponentSetup {
   fun mainExporter(
     nicoListFetcher: NicoListFetcher,
     vocadbPvMapper: PvMapper,
-  ) = MainExporter(nicoListFetcher, vocadbPvMapper)
+    loomDispatcher: CoroutineDispatcher,
+  ) = MainExporter(nicoListFetcher, vocadbPvMapper, loomDispatcher)
 
 
   @Bean
