@@ -1,5 +1,6 @@
 package mikufan.cx.vtool.core.n2vex
 
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -15,6 +16,7 @@ import mikufan.cx.vtool.shared.model.vocadb.VocaDBSongListItem
 class MainExporter(
   private val listFetcher: NicoListFetcher,
   private val pvMapper: PvMapper,
+  private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) {
 
   fun exportToVocaDbList(nicoListId: Long, sortPreference: NicoListSortPreference): Nico2VocaDbMapResult {
@@ -26,7 +28,7 @@ class MainExporter(
     return Nico2VocaDbMapResult(notFoundList, foundList)
   }
 
-  private fun mapNicoListToVocaDbList(songsItr: Iterator<NicoListItem>): List<MappedResult> = runBlocking(Dispatchers.Default) {
+  private fun mapNicoListToVocaDbList(songsItr: Iterator<NicoListItem>): List<MappedResult> = runBlocking(dispatcher) {
     songsItr.asSequence()
       .map { song -> song to async { pvMapper.tryFindRecord(PV(song.id, PvService.NicoNicoDouga, song.title)) } }
       .toList()
