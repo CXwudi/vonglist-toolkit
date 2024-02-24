@@ -1,11 +1,10 @@
 package mikufan.cx.vtool.app.n2vex.config
 
 import mikufan.cx.vtool.component.httpser.impl.api.NicoListApi
-import mikufan.cx.vtool.component.httpser.impl.customizer.DefaultHeadersRestClientCustomizer
 import mikufan.cx.vtool.component.httpser.impl.customizer.NvApiRestClientCustomizer
 import mikufan.cx.vtool.shared.model.niconico.NicoListSortKey
 import mikufan.cx.vtool.shared.model.niconico.NicoListSortOrder
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder
 import org.apache.hc.core5.http.HttpHeaders
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
@@ -28,15 +27,12 @@ class NicoNicoHttpConfig(
 
   @Bean
   fun niconicoHttpServiceProxyFactory(
-    niconicoHttpClient: CloseableHttpClient,
+    niconicoHttpClientBuilder: HttpClientBuilder,
   ): HttpServiceProxyFactory {
-    restClientBuilder.requestFactory(HttpComponentsClientHttpRequestFactory(niconicoHttpClient))
+    restClientBuilder.requestFactory(HttpComponentsClientHttpRequestFactory(niconicoHttpClientBuilder.build()))
     NvApiRestClientCustomizer(enableWriteOperations = false).customize(restClientBuilder)
     if (!niconicoUserSession.isNullOrBlank()) {
-      val headerWithUserSession = mapOf(
-        HttpHeaders.COOKIE to listOf("user_session=$niconicoUserSession")
-      )
-      DefaultHeadersRestClientCustomizer(headerWithUserSession).customize(restClientBuilder)
+      restClientBuilder.defaultHeader(HttpHeaders.COOKIE, "user_session=$niconicoUserSession")
     }
     val niconicoConversionService = DefaultFormattingConversionService().apply {
       addConverter(NicoListSortKeyConverter())
