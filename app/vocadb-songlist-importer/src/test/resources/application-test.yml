@@ -1,0 +1,13 @@
+io:
+  # the CSV file that contains the vocadb songlist
+  input-csv: ../nico2vocadb-songlist-exporter/test-output.csv
+  # ID of the list to be imported, can be null which means a new list will be created
+  vocadb-list-id: 15285
+
+system:
+  http:
+    cookie-jar-txt: vocadb.net_cookies.txt
+
+logging:
+  level:
+    org.apache.hc.client5.http.headers: debug
