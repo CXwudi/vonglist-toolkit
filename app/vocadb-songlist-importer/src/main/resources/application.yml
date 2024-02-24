@@ -1,0 +1,32 @@
+io:
+  # the CSV file that contains the vocadb songlist
+  input-csv:
+  # ID of the list to be imported, can be null which means a new list will be created
+  vocadb-list-id:
+
+preference:
+  # set this to true if your CSV file follows the format that vocadb's csv import feature can read
+  use-vocadb-csv-format: false
+
+system:
+  http:
+    # Since VocaDB post-API requires authentication,
+    # you must provide either the cookie-jar-txt containing the ".AspNetCore.Cookies" cookie
+    # or provide such cookie value in the asp-net-core-cookie-value config
+
+    # the path to the cookie jar txt file in netscape format
+    cookie-jar-txt:
+    # the value of the cookie named ".AspNetCore.Cookies" from VocaDB
+    # usually the value is like: CfDJ8NLtN2lCem... with a long string
+    asp-net-core-cookie-value:
+    # user-agent
+    user-agent: ${spring.application.name} @ https://github.com/CXwudi/vsonglist-toolkit
+
+## Spring Boot configuration ##
+
+spring:
+  application:
+    name: vocadb-songlist-importer
+  threads:
+    virtual:
+      enabled: true
