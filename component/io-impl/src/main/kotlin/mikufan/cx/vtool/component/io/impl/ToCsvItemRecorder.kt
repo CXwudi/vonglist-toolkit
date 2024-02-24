@@ -7,6 +7,15 @@ import mikufan.cx.vtool.component.io.api.ItemRecorder
 import java.io.Closeable
 import java.nio.file.Path
 
+/**
+ * To csv item recorder
+ *
+ * @param T the type of the item
+ *
+ * @param csvFile the path to the csv file
+ * @param withHeader whether to write the header to the csv file
+ * @param clazz the class of the item
+ */
 class ToCsvItemRecorder<T>(
   csvFile: Path,
   withHeader: Boolean = true,
@@ -39,6 +48,9 @@ class ToCsvItemRecorder<T>(
   }
 }
 
+/**
+ * Create a ToCsvItemRecorder with reified type
+ */
 inline fun <reified T> ToCsvItemRecorder(
   csvFile: Path,
   withHeader: Boolean = true
