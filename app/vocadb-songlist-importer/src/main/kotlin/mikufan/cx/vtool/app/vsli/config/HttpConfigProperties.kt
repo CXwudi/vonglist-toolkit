@@ -5,14 +5,12 @@ import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.Payload
 import jakarta.validation.constraints.NotBlank
-import mikufan.cx.vtool.component.httpser.impl.customizer.UserAgentRestClientCustomizer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.stereotype.Component
 import org.springframework.validation.annotation.Validated
 import java.nio.file.Path
+import kotlin.io.path.isReadable
 import kotlin.reflect.KClass
 
 @ConfigurationProperties(prefix = "system.http")
@@ -43,16 +41,9 @@ class IsLogonValidator(
 
   override fun isValid(systemConfigProperties: HttpConfigProperties, context: ConstraintValidatorContext): Boolean =
     if (requireLogon) {
-      systemConfigProperties.cookieJarTxt != null || systemConfigProperties.aspNetCoreCookieValue?.isNotBlank() ?: false
+      val cookieJarTxt = systemConfigProperties.cookieJarTxt
+      (cookieJarTxt != null &&  cookieJarTxt.isReadable())|| (systemConfigProperties.aspNetCoreCookieValue?.isNotBlank() ?: false)
     } else {
       true
     }
-}
-
-@Configuration
-class UserAgentConfig {
-  @Bean
-  fun userAgentRestClientCustomizer(httpConfigProperties: HttpConfigProperties): UserAgentRestClientCustomizer {
-    return UserAgentRestClientCustomizer(httpConfigProperties.userAgent)
-  }
 }
