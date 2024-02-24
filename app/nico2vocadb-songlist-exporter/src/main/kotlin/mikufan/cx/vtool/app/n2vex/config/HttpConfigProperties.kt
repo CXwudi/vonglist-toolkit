@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.stereotype.Component
 import org.springframework.validation.annotation.Validated
 import java.nio.file.Path
+import kotlin.io.path.isReadable
 import kotlin.reflect.KClass
 
 @ConfigurationProperties(prefix = "system.http")
@@ -42,7 +43,8 @@ class IsLogonValidator(
 ) : ConstraintValidator<IsLogon, HttpConfigProperties> {
 
     override fun isValid(systemConfigProperties: HttpConfigProperties, context: ConstraintValidatorContext): Boolean = if (requireLogon) {
-      systemConfigProperties.cookieJarTxt != null || systemConfigProperties.niconicoUserSessionCookieValue?.isNotBlank() ?: false
+      val cookieJarTxt = systemConfigProperties.cookieJarTxt
+      (cookieJarTxt != null &&  cookieJarTxt.isReadable()) || systemConfigProperties.niconicoUserSessionCookieValue?.isNotBlank() ?: false
     } else {
       true
     }
