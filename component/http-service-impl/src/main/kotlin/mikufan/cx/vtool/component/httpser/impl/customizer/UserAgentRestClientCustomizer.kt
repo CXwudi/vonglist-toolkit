@@ -1,16 +1,12 @@
-package mikufan.cx.vtool.app.n2vex.config
+package mikufan.cx.vtool.component.httpser.impl.customizer
 
 import org.springframework.boot.web.client.RestClientCustomizer
 import org.springframework.http.HttpHeaders
-import org.springframework.stereotype.Component
 import org.springframework.web.client.RestClient
 
-@Component
 class UserAgentRestClientCustomizer(
-  httpConfigProperties: HttpConfigProperties
+  private val userAgent: String
 ) : RestClientCustomizer {
-
-  private val userAgent = httpConfigProperties.userAgent
 
   override fun customize(restClientBuilder: RestClient.Builder) {
     restClientBuilder.defaultHeader(HttpHeaders.USER_AGENT, userAgent)
