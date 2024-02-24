@@ -18,6 +18,7 @@ class MainImporter(
       vocaDbSongListPusher.getForEditById(toListId)
     }
     jsonHandles.setSongListToJson(json, songItems)
+    log.debug { "Pushing with json = $json" }
     val id = vocaDbSongListPusher.pushSongList(json)
     log.info { "Successfully pushed song list to VocaDB with id $id" }
   }
