@@ -29,6 +29,7 @@ class NetscapeTxtCookieStorePersistor(
     txtFile.bufferedReader().use { reader ->
       reader.lineSequence().forEach { line ->
         if (line.startsWith("#")) return@forEach
+        if (line.isBlank()) return@forEach
         val parts = line.split("\t")
         if (parts.size == 7) {
           val cookie = BasicClientCookie(parts[5], parts[6]).apply {
