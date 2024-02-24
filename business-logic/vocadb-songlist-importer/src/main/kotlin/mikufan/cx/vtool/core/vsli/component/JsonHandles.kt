@@ -3,6 +3,7 @@ package mikufan.cx.vtool.core.vsli.component
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -15,6 +16,7 @@ import mikufan.cx.vtool.shared.model.vocadb.VocaDBSongListItem
  */
 class JsonHandles(
   private val objectMapper: ObjectMapper,
+  private val dispatchers: CoroutineDispatcher = Dispatchers.Default
 ) {
 
   fun createNewListJson(): JsonNode {
@@ -24,7 +26,7 @@ class JsonHandles(
   }
 
   fun setSongListToJson(json: JsonNode, items: List<VocaDBSongListItem>) {
-    val mappedJsonNodeList = runBlocking(Dispatchers.Default) {
+    val mappedJsonNodeList = runBlocking(dispatchers) {
       items.mapIndexed { index, item -> async { mapOne(index, item) } }
         .map { it.await() }
     }
