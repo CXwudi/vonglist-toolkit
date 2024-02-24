@@ -10,6 +10,8 @@ import org.infinispan.spring.starter.embedded.InfinispanGlobalConfigurationCusto
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import java.nio.file.Path
+import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 @Configuration(proxyBeanMethods = false)
@@ -19,22 +21,23 @@ class CacheConfig {
   @Bean
   fun enableCustomPersistentLocation(
     cacheConfigProperties: CacheConfigProperties,
-  ) = EnableCustomPersistentLocationGlobalConfigCustomizer(cacheConfigProperties)
+  ) = EnableCustomPersistentLocationGlobalConfigCustomizer(cacheConfigProperties.dir)
 
   @Bean
   fun enableCachePersistent(
     cacheConfigProperties: CacheConfigProperties,
-  ) = EnablePersistentCacheManagerConfigurer(cacheConfigProperties,)
+  ): EnablePersistentCacheManagerConfigurer {
+    return EnablePersistentCacheManagerConfigurer(cacheConfigProperties.ttl, AllCacheNames())
+  }
 
   @Bean
   fun jCacheManager(infinispanCacheManager: EmbeddedCacheManager) = JCacheManager(null, infinispanCacheManager, null)
 }
 
 class EnableCustomPersistentLocationGlobalConfigCustomizer(
-  cacheConfigProperties: CacheConfigProperties,
+  private val dir: Path,
 ) : InfinispanGlobalConfigurationCustomizer {
 
-  private val dir = cacheConfigProperties.dir
   override fun customize(builder: GlobalConfigurationBuilder) {
     builder.globalState().enable()
       .persistentLocation(dir.toString())
@@ -43,22 +46,18 @@ class EnableCustomPersistentLocationGlobalConfigCustomizer(
 }
 
 class EnablePersistentCacheManagerConfigurer(
-  cacheConfigProperties: CacheConfigProperties,
-  private val additionalCacheNames: List<String> = emptyList(),
+  ttl: Duration,
+  private val cacheNames: List<String>,
 ) : InfinispanCacheConfigurer {
   private val configuration = ConfigurationBuilder()
     .persistence().passivation(false)
     .addSoftIndexFileStore()
     .shared(false)
     .preload(true)
-    .expiration().lifespan(cacheConfigProperties.ttl.toMillis(), TimeUnit.MILLISECONDS)
+    .expiration().lifespan(ttl.toMillis(), TimeUnit.MILLISECONDS)
     .build()
 
   override fun configureCache(manager: EmbeddedCacheManager) {
-    val allCacheNames = buildSet {
-      addAll(AllCacheNames())
-      addAll(additionalCacheNames)
-    }
-    allCacheNames.forEach { manager.defineConfiguration(it, configuration) }
+    cacheNames.forEach { manager.defineConfiguration(it, configuration) }
   }
 }
