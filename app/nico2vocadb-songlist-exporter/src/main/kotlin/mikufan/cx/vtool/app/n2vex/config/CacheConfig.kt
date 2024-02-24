@@ -1,6 +1,8 @@
 package mikufan.cx.vtool.app.n2vex.config
 
 import mikufan.cx.vtool.shared.model.AllCacheNames
+import mikufan.cx.vtool.util.infinispan.setupPersist
+import mikufan.cx.vtool.util.infinispan.setupPersistLocation
 import org.infinispan.configuration.cache.ConfigurationBuilder
 import org.infinispan.configuration.global.GlobalConfigurationBuilder
 import org.infinispan.jcache.embedded.JCacheManager
@@ -12,7 +14,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.nio.file.Path
 import java.time.Duration
-import java.util.concurrent.TimeUnit
 
 @Configuration(proxyBeanMethods = false)
 @EnableCaching
@@ -39,9 +40,7 @@ class EnableCustomPersistentLocationGlobalConfigCustomizer(
 ) : InfinispanGlobalConfigurationCustomizer {
 
   override fun customize(builder: GlobalConfigurationBuilder) {
-    builder.globalState().enable()
-      .persistentLocation(dir.toString())
-      .serialization()
+    builder.setupPersistLocation(dir)
   }
 }
 
@@ -50,11 +49,7 @@ class EnablePersistentCacheManagerConfigurer(
   private val cacheNames: List<String>,
 ) : InfinispanCacheConfigurer {
   private val configuration = ConfigurationBuilder()
-    .persistence().passivation(false)
-    .addSoftIndexFileStore()
-    .shared(false)
-    .preload(true)
-    .expiration().lifespan(ttl.toMillis(), TimeUnit.MILLISECONDS)
+    .setupPersist(ttl)
     .build()
 
   override fun configureCache(manager: EmbeddedCacheManager) {
