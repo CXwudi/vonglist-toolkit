@@ -12,10 +12,10 @@ import org.springframework.validation.annotation.Validated
 import java.nio.file.Path
 import kotlin.reflect.KClass
 
-@ConfigurationProperties(prefix = "system")
+@ConfigurationProperties(prefix = "system.http")
 @Validated
 @IsLogon
-data class SystemConfigProperties(
+data class HttpConfigProperties(
   val cookieJarTxt: Path?,
   val niconicoUserSessionCookieValue: String?,
   @get:NotBlank
@@ -36,9 +36,9 @@ annotation class IsLogon(
 class IsLogonValidator(
   @Value("\${preference.use-private-api:false}")
   private val requireLogon: Boolean
-) : ConstraintValidator<IsLogon, SystemConfigProperties> {
+) : ConstraintValidator<IsLogon, HttpConfigProperties> {
 
-    override fun isValid(systemConfigProperties: SystemConfigProperties, context: ConstraintValidatorContext): Boolean = if (requireLogon) {
+    override fun isValid(systemConfigProperties: HttpConfigProperties, context: ConstraintValidatorContext): Boolean = if (requireLogon) {
       systemConfigProperties.cookieJarTxt != null || systemConfigProperties.niconicoUserSessionCookieValue?.isNotBlank() ?: false
     } else {
       true

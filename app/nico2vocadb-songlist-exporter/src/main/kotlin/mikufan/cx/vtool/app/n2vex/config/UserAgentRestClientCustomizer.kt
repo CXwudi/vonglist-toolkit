@@ -7,10 +7,10 @@ import org.springframework.web.client.RestClient
 
 @Component
 class UserAgentRestClientCustomizer(
-  systemConfigProperties: SystemConfigProperties
+  httpConfigProperties: HttpConfigProperties
 ) : RestClientCustomizer {
 
-  private val userAgent = systemConfigProperties.userAgent
+  private val userAgent = httpConfigProperties.userAgent
 
   override fun customize(restClientBuilder: RestClient.Builder) {
     restClientBuilder.defaultHeader(HttpHeaders.USER_AGENT, userAgent)
