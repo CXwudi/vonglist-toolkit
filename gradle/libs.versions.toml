@@ -30,7 +30,7 @@ bom-springBoot = { module = "org.springframework.boot:spring-boot-dependencies",
 pluginDep-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 pluginDep-springBoot = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "springBoot" }
 pluginDep-kotlinAllOpen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
-settingDep-gradleEnterprise = "com.gradle.enterprise:com.gradle.enterprise.gradle.plugin:3.17"
+settingDep-gradleEnterprise = "com.gradle.enterprise:com.gradle.enterprise.gradle.plugin:3.17.1"
 settingDep-foojayResolver = "org.gradle.toolchains:foojay-resolver:0.8.0"
 
 # dependencies, naming convention: dep-<nameInCamelCase>
