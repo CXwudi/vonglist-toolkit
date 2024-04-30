@@ -1,0 +1,23 @@
+io:
+  # the ID of the song list on VocaDB, to be exported
+  vocadb-list-id:
+  # the CSV file that will contain the list of songs
+  output-csv:
+
+preference:
+  # the sort order when reading the song list from VocaDB, can be null, which means the default sort order
+  # valid values are: None, Name, AdditionDate, PublishDate, FavoritedTimes, RatingScore, TagUsageCount, SongType;
+  # be aware that the None option doesn't mean null, it is a valid sort order called Nothing on the website, which I didn't know what it means
+  sort-order:
+  # set this to true if you want the output CSV file to follow the format that vocadb's csv import feature can read
+  use-vocadb-csv-format: false
+
+
+## Spring Boot configuration ##
+
+spring:
+  application:
+    name: vocadb-songlist-exporter
+  threads:
+    virtual:
+      enabled: true
