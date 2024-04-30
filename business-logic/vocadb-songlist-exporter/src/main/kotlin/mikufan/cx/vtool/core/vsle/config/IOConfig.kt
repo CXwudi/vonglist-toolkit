@@ -5,7 +5,7 @@ import kotlin.io.path.createDirectories
 import kotlin.io.path.notExists
 
 interface IOConfig {
-  val vocadbSongListId: Long
+  val vocadbListId: Long
   val outputCsv: Path
 
   fun createFolders() {

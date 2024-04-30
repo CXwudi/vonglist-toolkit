@@ -16,7 +16,7 @@ class MainExporterWithLocalWrite(
   private val sort = preference.sortOrder
 
   override fun run() {
-    val list = mainExporter.exportSongList(ioConfig.vocadbSongListId, sort)
+    val list = mainExporter.exportSongList(ioConfig.vocadbListId, sort)
     csvWriter.recordAll(list)
     log.info { "Done" }
   }
