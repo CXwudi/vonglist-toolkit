@@ -2,9 +2,11 @@ package mikufan.cx.vtool.component.httpser.impl.api
 
 import com.fasterxml.jackson.databind.JsonNode
 import jakarta.validation.constraints.NotNull
+import mikufan.cx.vtool.shared.model.vocadb.VocaDbSongListItemSortOrder
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.service.annotation.GetExchange
 import org.springframework.web.service.annotation.HttpExchange
 import org.springframework.web.service.annotation.PostExchange
@@ -26,6 +28,23 @@ interface VocaDbSongListApi {
   fun getForEditById(
     @PathVariable @NotNull id: Long
   ): String
+
+  /**
+   * Fetches all songs from a song list by its ID.
+   * @param id The ID of the song list.
+   * @return song list Json, the json will contain empty array if no songs or no song list found.
+   */
+  @GetExchange("/songLists/{id}/songs")
+  fun getSongList(
+    @PathVariable @NotNull id: Long,
+    /**
+     * The start index of the songs to fetch.
+     */
+    @RequestParam start: Int? = null,
+    @RequestParam maxResults: Int? = null,
+    @RequestParam getTotalCount: Boolean = true,
+    @RequestParam sort: VocaDbSongListItemSortOrder? = null,
+  ): JsonNode
 
   /**
    * Pushes a song list to VocaDB.
