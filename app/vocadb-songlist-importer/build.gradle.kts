@@ -11,7 +11,6 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter")
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.boot:spring-boot-starter-json")
-  implementation("org.springframework.boot:spring-boot-starter-cache")
   implementation("org.springframework:spring-web")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
