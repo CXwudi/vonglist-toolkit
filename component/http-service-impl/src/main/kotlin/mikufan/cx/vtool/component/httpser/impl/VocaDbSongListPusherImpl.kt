@@ -26,7 +26,7 @@ class VocaDbSongListPusherImpl(
   override fun getForEditById(id: Long): JsonNode {
     val raw = vocaDbSongListApi.getForEditById(id)
     return if (isHtml(raw)) {
-      log.error { "VocaDB API returned HTML instead of JSON, indicating the id is wrong" }
+      log.error { "VocaDB API returned HTML instead of JSON, indicating the id is wrong, or we are unauthenticated" }
       throw VocaloidException("VocaDB returned HTML instead of JSON: \n$raw")
     } else {
       objectMapper.readTree(raw)
