@@ -7,3 +7,5 @@ class VocaloidException : Exception {
   constructor(cause: Throwable) : super(cause)
   constructor() : super()
 }
+
+inline fun vocaloidError(message: Any): Nothing = throw VocaloidException(message.toString())
