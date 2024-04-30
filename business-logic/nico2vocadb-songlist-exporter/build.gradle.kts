@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
   implementation(project(":shared:all-model"))
-  api(project(":component:io-api"))
-  api(project(":component:http-service-api"))
+  implementation(project(":component:io-api"))
+  implementation(project(":component:http-service-api"))
   api("com.github.CXwudi:kotlin-jvm-inline-logging")
 }
