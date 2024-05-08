@@ -1,0 +1,5 @@
+io:
+  # the ID of the song list on VocaDB, to be exported
+  vocadb-list-id: 15285 # 2024 list for test
+  # the CSV file that will contain the list of songs
+  output-csv: test-2024-list.csv

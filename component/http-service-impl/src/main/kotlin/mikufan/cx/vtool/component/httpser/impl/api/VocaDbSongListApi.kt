@@ -40,10 +40,10 @@ interface VocaDbSongListApi {
     /**
      * The start index of the songs to fetch.
      */
-    @RequestParam start: Int? = null,
-    @RequestParam maxResults: Int? = null,
-    @RequestParam getTotalCount: Boolean = true,
-    @RequestParam sort: VocaDbSongListItemSortOrder? = null,
+    @RequestParam(required = false) start: Int? = null,
+    @RequestParam(required = false) maxResults: Int? = null,
+    @RequestParam(required = false) getTotalCount: Boolean = true,
+    @RequestParam(required = false) sort: VocaDbSongListItemSortOrder? = null,
   ): JsonNode
 
   /**

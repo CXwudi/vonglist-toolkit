@@ -12,6 +12,9 @@ preference:
   # set this to true if you want the output CSV file to follow the format that vocadb's csv import feature can read
   use-vocadb-csv-format: false
 
+system:
+  http:
+    user-agent: ${spring.application.name} @ https://github.com/CXwudi/vsonglist-toolkit
 
 ## Spring Boot configuration ##
 
