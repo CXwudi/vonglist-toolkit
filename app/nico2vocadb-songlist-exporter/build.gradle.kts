@@ -18,3 +18,7 @@ dependencies {
   implementation("org.springframework:spring-web")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
+
+application {
+  mainClass = "mikufan.cx.vtool.app.n2vex.MainKt"
+}
