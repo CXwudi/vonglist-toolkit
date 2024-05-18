@@ -44,6 +44,6 @@ dep-kotestSpring = "io.kotest.extensions:kotest-extensions-spring:1.1.3"
 # put your plugins used in the main build here
 # however, when multiple main builds have similar plugin settings on a plugin here,
 # then it have to be moved to a separated precompiled script plugin, like the `pluginDep-kotlin` above
-graalvmNative = "org.graalvm.buildtools.native:0.10.1"
+graalvmNative = "org.graalvm.buildtools.native:0.10.2"
 # this is only used by the workaround in root build.gradle.kts
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
