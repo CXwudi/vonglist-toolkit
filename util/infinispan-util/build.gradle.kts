@@ -4,6 +4,6 @@ plugins {
 
 dependencies {
   api(platform("org.springframework.boot:spring-boot-dependencies"))
-  api("org.infinispan:infinispan-core-jakarta")
+  api("org.infinispan:infinispan-core")
   api("org.infinispan:infinispan-jcache")
 }
