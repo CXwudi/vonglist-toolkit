@@ -23,7 +23,7 @@ class VocaDbPvMapper(
     val result = songByPvApi.getSongByPv(pvId, pvService)
     return if (result == null || result.isNull) {
       log.warn { "No VocaDB entry found for $pv" }
-      handleCache(pv, null)
+      // do not cache it, so that next time it will be fetched from VocaDB API again in case it is updated
       null
     } else {
       val vocadbId = result["id"].asLong()
