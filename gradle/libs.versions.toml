@@ -22,7 +22,7 @@ springBoot = "3.3.3"
 [libraries]
 # unless there is a keyword conflict or the name is wired
 # bom, naming convention: bom-<name>
-bom-coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.8.1"
+bom-coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.9.0"
 bom-kotest = "io.kotest:kotest-bom:5.9.1"
 bom-springBoot = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "springBoot" }
 
